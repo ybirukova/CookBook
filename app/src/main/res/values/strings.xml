@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CookBook</string>
+
+    <string name="title_search">Search</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_shop_list">Shop list</string>
+    <string name="title_edit_recipe">Edit recipe</string>
+
 </resources>
