@@ -24,15 +24,13 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
 
-        val retrofit = Retrofit.Builder()
+        return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
-        return retrofit
     }
 
     @Provides
