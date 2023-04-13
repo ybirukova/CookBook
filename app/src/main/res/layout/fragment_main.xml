@@ -4,8 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+
     <EditText
-        android:id="@+id/et_search"
+        android:id="@+id/et_search_click"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="search..."
@@ -14,10 +22,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_search_result"
+        android:id="@+id/rv_random_recipes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_search" />
+        app:layout_constraintTop_toBottomOf="@+id/et_search_click" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

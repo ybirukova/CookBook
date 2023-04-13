@@ -6,42 +6,73 @@
 
     <ImageView
         android:id="@+id/iv_image_of_dish"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:adjustViewBounds="true"
         android:background="@color/light_gray"
-        android:scaleType="center"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_default_recipe_pic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_meal_type_ic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_meal_type"
+        app:layout_constraintStart_toEndOf="@+id/iv_image_of_dish"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_meal_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:hint="mealtype"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_meal_type_ic"
+        app:layout_constraintStart_toEndOf="@+id/iv_meal_type_ic"
+        app:layout_constraintTop_toTopOf="@+id/iv_meal_type_ic" />
+
+    <ImageView
+        android:id="@+id/iv_time_ic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_time"
+        app:layout_constraintStart_toEndOf="@+id/iv_image_of_dish"
+        app:layout_constraintTop_toBottomOf="@+id/tv_meal_type" />
+
+    <TextView
+        android:id="@+id/tv_total_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:hint="0 hours 0 min"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_time_ic"
+        app:layout_constraintStart_toEndOf="@+id/iv_time_ic"
+        app:layout_constraintTop_toTopOf="@+id/iv_time_ic" />
 
     <TextView
         android:id="@+id/tv_title_of_recipe"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
         android:hint="Title of the recipe"
-        app:layout_constraintEnd_toStartOf="@+id/cb_like"
-        app:layout_constraintStart_toEndOf="@+id/iv_image_of_dish"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_short_info_about_recipe"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:hint="short info about recipe"
+        android:textColor="@color/dark_gray"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_image_of_dish"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_of_recipe" />
+        app:layout_constraintTop_toBottomOf="@+id/cb_like" />
 
     <CheckBox
         android:id="@+id/cb_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:button="@drawable/checkbox_item_unlike"
+        android:button="@drawable/checkbox_selector_like"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

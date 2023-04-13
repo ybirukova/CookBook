@@ -1,13 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_main"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_recipe"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true">
 
-    <TextView
+    <ImageView
+        android:id="@+id/iv_fr_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="RECIPE INFO + PICTURE + LINK"/>
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_default_recipe_pic"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_link"
+        app:layout_constraintTop_toBottomOf="@+id/iv_fr_image">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_fr_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="Title"
+                android:paddingVertical="10dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/iv_fr_image" />
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_fr_meal_type_ic"
+                    android:src="@drawable/ic_meal_type" />
+
+                <TextView
+                    android:id="@+id/tv_fr_meal_type"
+                    android:layout_marginStart="10dp"
+                    android:hint="lunch/dinner" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_fr_time_ic"
+                    android:src="@drawable/ic_time" />
+
+                <TextView
+                    android:id="@+id/tv_fr_total_time"
+                    android:layout_marginStart="10dp"
+                    android:hint="45 min" />
+            </TableRow>
+
+            <TextView
+                android:id="@+id/tv_fr_ingredients_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Ingredients:"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fr_total_time" />
+
+            <TextView
+                android:id="@+id/tv_fr_ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text=" product1\n product2\n product3 "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fr_ingredients_title" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:autoLink="web"
+        android:text="go to recipe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

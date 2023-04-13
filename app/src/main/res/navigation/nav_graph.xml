@@ -3,23 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/navigation_search">
+    app:startDestination="@id/navigation_main">
 
     <fragment
-        android:id="@+id/navigation_search"
-        android:name="com.example.cookbook.ui.fragments.SearchFragment"
-        android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" >
+        android:id="@+id/navigation_main"
+        android:name="com.example.cookbook.ui.fragments.MainFragment"
+        android:label="Main"
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_navigation_search_to_fragmentRecipe"
             app:destination="@id/fragmentRecipe" />
+        <action
+            android:id="@+id/action_navigation_main_to_fragmentSearch"
+            app:destination="@id/fragmentSearch" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_favorites"
         android:name="com.example.cookbook.ui.fragments.FavoritesRecipeFragment"
-        android:label="FavoritesRecipeFragment"
-        tools:layout="@layout/fragment_favorites" >
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorites">
         <action
             android:id="@+id/action_navigation_favorites_to_fragmentRecipe"
             app:destination="@id/fragmentRecipe" />
@@ -28,13 +31,13 @@
     <fragment
         android:id="@+id/navigation_shop_list"
         android:name="com.example.cookbook.ui.fragments.ShopListFragment"
-        android:label="ShopListFragment"
+        android:label="Shop List"
         tools:layout="@layout/fragment_shop_list" />
 
     <fragment
         android:id="@+id/navigation_own_recipes"
         android:name="com.example.cookbook.ui.fragments.OwnRecipesFragment"
-        android:label="OwnRecipesFragment"
+        android:label="Own Recipes"
         tools:layout="@layout/fragment_own_recipes" />
 
     <fragment
@@ -42,5 +45,15 @@
         android:name="com.example.cookbook.ui.fragments.FullRecipeFragment"
         android:label="RecipeFragment"
         tools:layout="@layout/fragment_recipe" />
+
+    <fragment
+        android:id="@+id/fragmentSearch"
+        android:name="com.example.cookbook.ui.fragments.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_fragmentSearch_to_fragmentRecipe"
+            app:destination="@id/fragmentRecipe" />
+    </fragment>
 
 </navigation>
