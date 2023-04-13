@@ -2,7 +2,6 @@ package com.example.cookbook.data.mappers
 
 import com.example.cookbook.data.models.ItemOfRecipeListResponse
 import com.example.cookbook.domain.models.RecipeData
-import java.util.Calendar
 import javax.inject.Inject
 
 class ResponseToDataRecipeMapper @Inject constructor() {
@@ -12,7 +11,7 @@ class ResponseToDataRecipeMapper @Inject constructor() {
             label = recipe?.label.orEmpty(),
             image = recipe?.image.orEmpty(),
             url = recipe?.url.orEmpty(),
-            mealType = recipe?.mealType.orEmpty(),
+            mealType = recipe?.mealType?.get(0) ?: "",
             ingredientLines = recipe?.ingredientLines.orEmpty(),
             totalTime = getTotalTime(recipe?.totalTime)
         )
@@ -20,9 +19,17 @@ class ResponseToDataRecipeMapper @Inject constructor() {
 
     private fun getTotalTime(time: Double?): String {
         val totalTimeInt = time?.toInt() ?: return "-"
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.MINUTE, totalTimeInt)
+        return if (totalTimeInt == 0) {
+            "-"
+        } else if (totalTimeInt < 60) {
+            "$totalTimeInt m"
+        } else if (totalTimeInt % 60 == 0) {
+            "${totalTimeInt / 60} h"
+        } else "${totalTimeInt / 60} h ${totalTimeInt % 60} m"
 
-        return "${calendar.get(Calendar.HOUR_OF_DAY)} hours $${calendar.get(Calendar.MINUTE)} min"
+//        val calendar = Calendar.getInstance()
+//        calendar.set(Calendar.MINUTE, totalTimeInt)
+//
+//        return "${calendar.get(Calendar.HOUR_OF_DAY)} h ${calendar.get(Calendar.MINUTE)} m"
     }
 }

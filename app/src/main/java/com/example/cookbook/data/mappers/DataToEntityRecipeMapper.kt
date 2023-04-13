@@ -2,9 +2,10 @@ package com.example.cookbook.data.mappers
 
 import com.example.cookbook.data.database.RecipeEntity
 import com.example.cookbook.domain.models.RecipeData
+import com.example.cookbook.utils.TypeConverter
 import javax.inject.Inject
 
-class DataToEntityRecipeMapper @Inject constructor() {
+class DataToEntityRecipeMapper @Inject constructor(private val typeConverter: TypeConverter) {
 
     operator fun invoke(data: RecipeData) = with(data) {
         RecipeEntity(
@@ -12,7 +13,7 @@ class DataToEntityRecipeMapper @Inject constructor() {
             image = image,
             url = url,
             mealType = mealType,
-            ingredientLines = ingredientLines,
+            ingredientLines = typeConverter.subToJson(ingredientLines),
             totalTime = totalTime
         )
     }
