@@ -9,11 +9,11 @@ import androidx.room.Query
 interface FavoriteRecipeDao {
 
     @Query("SELECT * FROM recipe_table")
-    fun getAllRecipe(): List<RecipeEntity>
+    fun getAllRecipes(): List<RecipeEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllRecipe(vararg recipes: RecipeEntity)
+    fun insertRecipe(recipe: RecipeEntity)
 
-    @Query("DELETE FROM recipe_table WHERE url = ?")
-    fun deleteAll()
+    @Query("DELETE FROM recipe_table WHERE url = :url")
+    fun deleteRecipe(url: String)
 }
