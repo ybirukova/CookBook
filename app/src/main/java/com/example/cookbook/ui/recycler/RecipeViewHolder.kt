@@ -11,19 +11,24 @@ import com.example.cookbook.domain.models.RecipeData
 
 class RecipeViewHolder(
     itemView: View,
-    private val itemClick: (RecipeData) -> Unit
+    private val itemClick: (RecipeData) -> Unit,
+    private val checkboxClick: (RecipeData, Boolean) -> Unit
 ) :
     RecyclerView.ViewHolder(itemView) {
 
     fun onBind(recipe: RecipeData) {
         val image = itemView.findViewById<ImageView>(R.id.iv_image_of_dish)
         val title = itemView.findViewById<TextView>(R.id.tv_title_of_recipe)
-        val info = itemView.findViewById<TextView>(R.id.tv_short_info_about_recipe)
+        val totalTime = itemView.findViewById<TextView>(R.id.tv_total_time)
+        val mealType = itemView.findViewById<TextView>(R.id.tv_meal_type)
+
         val checkbox = itemView.findViewById<CheckBox>(R.id.cb_like)
 
+        checkbox.isChecked = recipe.isFavorite
+
         title.text = recipe.label
-        //заменить на иконку часы
-        info.text = "Time: ${recipe.totalTime}"
+        totalTime.text = recipe.totalTime
+        mealType.text = recipe.mealType
 
         if (recipe.image.isBlank()) {
             image.setImageResource(R.drawable.ic_default_recipe_pic)
@@ -32,6 +37,10 @@ class RecipeViewHolder(
                 .with(itemView.context)
                 .load(recipe.image)
                 .into(image)
+
+        checkbox.setOnCheckedChangeListener { _, isChecked ->
+            checkboxClick.invoke(recipe, isChecked)
+        }
 
         itemView.setOnClickListener {
             itemClick.invoke(recipe)
