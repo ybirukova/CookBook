@@ -1,34 +1,27 @@
 package com.example.cookbook.data
 
-import com.example.cookbook.data.database.FavoriteRecipeDao
-import com.example.cookbook.data.database.RandomRecipeDao
+import com.example.cookbook.data.database.RecipeDao
 import com.example.cookbook.data.database.RecipeEntity
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DatabaseSource @Inject constructor(
-    private val randomRecipeDao: RandomRecipeDao,
-    private val favoriteRecipeDao: FavoriteRecipeDao
+    private val recipeDao: RecipeDao,
 ) {
 
     fun getAllRecipes(): List<RecipeEntity> {
-        return randomRecipeDao.getAllRecipe()
+        return recipeDao.getAllRecipe()
     }
 
     fun insertAllRecipe(vararg recipes: RecipeEntity) {
-        randomRecipeDao.deleteAll()
-        randomRecipeDao.insertAllRecipe(*recipes)
+        recipeDao.deleteAll()
+        recipeDao.insertAllRecipe(*recipes)
     }
 
-    fun getFavoriteRecipes(): List<RecipeEntity> {
-        return favoriteRecipeDao.getAllRecipes()
+    fun getFavoriteRecipes(isFavorite: Boolean): List<RecipeEntity> {
+        return recipeDao.getFavoriteRecipes(isFavorite)
     }
 
-    fun addFavoriteRecipe(recipe: RecipeEntity) {
-        favoriteRecipeDao.insertRecipe(recipe)
-    }
-
-    fun removeFavoriteRecipe(recipe: RecipeEntity) {
-        favoriteRecipeDao.deleteRecipe(recipe.url)
+    fun updateIsFavorite(isFavorite: Boolean, id: Int) {
+        recipeDao.updateIsFavorite(isFavorite, id)
     }
 }
