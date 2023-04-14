@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_main"
-        android:name="com.example.cookbook.ui.fragments.MainFragment"
+        android:name="com.example.cookbook.ui.fragments_menu.MainFragment"
         android:label="Main"
         tools:layout="@layout/fragment_main">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.example.cookbook.ui.fragments.FavoritesRecipeFragment"
+        android:name="com.example.cookbook.ui.fragments_menu.FavoritesRecipeFragment"
         android:label="Favorites"
         tools:layout="@layout/fragment_favorites">
         <action
@@ -30,13 +30,13 @@
 
     <fragment
         android:id="@+id/navigation_shop_list"
-        android:name="com.example.cookbook.ui.fragments.ShopListFragment"
+        android:name="com.example.cookbook.ui.fragments_menu.ShopListFragment"
         android:label="Shop List"
         tools:layout="@layout/fragment_shop_list" />
 
     <fragment
         android:id="@+id/navigation_own_recipes"
-        android:name="com.example.cookbook.ui.fragments.OwnRecipesFragment"
+        android:name="com.example.cookbook.ui.fragments_menu.OwnRecipesFragment"
         android:label="Own Recipes"
         tools:layout="@layout/fragment_own_recipes" />
 

@@ -5,5 +5,16 @@
     <string name="title_favorites">Favorites</string>
     <string name="title_shop_list">Shop list</string>
     <string name="title_edit_recipe">Edit recipe</string>
+    <string name="search_title">Search...</string>
+
+    <string-array name="spinner_array_meal_type">
+        <item>Meal type</item>
+        <item>breakfast</item>
+        <item>snack</item>
+        <item>lunch</item>
+        <item>tea</item>
+        <item>supper</item>
+        <item>dinner</item>
+    </string-array>
 
 </resources>
