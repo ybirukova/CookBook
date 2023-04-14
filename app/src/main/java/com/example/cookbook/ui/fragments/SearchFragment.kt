@@ -7,18 +7,14 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.cookbook.R
 import com.example.cookbook.RecipeApp
 import com.example.cookbook.databinding.FragmentSearchBinding
 import com.example.cookbook.di.ViewModelFactory
 import com.example.cookbook.domain.models.RecipeData
-import com.example.cookbook.ui.RecipeViewModel
+import com.example.cookbook.ui.viewmodels.RecipeViewModel
 import com.example.cookbook.ui.recycler.RecipeAdapter
 import javax.inject.Inject
 
@@ -31,10 +27,9 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     var itemClick: (RecipeData) -> Unit = { recipe ->
-
-        //открывать новый фрагмент с развернутым рецептом
-//        openFragment(FullRecipeFragment())
     }
+
+    private var checkboxClick: (RecipeData, Boolean) -> Unit = {_,_ ->}
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -56,7 +51,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val editTextSearch = binding.etSearch
-        val recycler = binding.rvSearch
+        val recycler = binding.rvSearchResult
 
         editTextSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -74,19 +69,15 @@ class SearchFragment : Fragment() {
             }
         })
 
-        viewModel.getRandomRecipeList()
+        viewModel.searchLiveData.observe(viewLifecycleOwner) { searchText ->
+            viewModel.searchRecipes(searchText)
+        }
 
-        viewModel.recipeLiveData.observe(viewLifecycleOwner) {
-            val adapter = RecipeAdapter(it, itemClick)
+        viewModel.searchResultLiveData.observe(viewLifecycleOwner) {
+            val adapter = RecipeAdapter(it, itemClick, checkboxClick)
             recycler.adapter = adapter
             recycler.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
-
-        val dividerItemDecoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
-        ContextCompat.getDrawable(requireContext(), R.drawable.rv_divider)
-            ?.let()
-            { dividerItemDecoration.setDrawable(it) }
-        recycler.addItemDecoration(dividerItemDecoration)
     }
 }
