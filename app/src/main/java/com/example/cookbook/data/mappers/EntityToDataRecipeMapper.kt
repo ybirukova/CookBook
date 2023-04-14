@@ -9,12 +9,14 @@ class EntityToDataRecipeMapper @Inject constructor(private val typeConverter: Ty
 
     operator fun invoke(entity: RecipeEntity) = with(entity) {
         RecipeData(
+            id = id,
             label = label,
             image = image,
             url = url,
             mealType = mealType,
             ingredientLines = typeConverter.jsonToSubject(ingredientLines),
-            totalTime = totalTime
+            totalTime = totalTime,
+            isFavorite = isFavorite
         )
     }
 }
