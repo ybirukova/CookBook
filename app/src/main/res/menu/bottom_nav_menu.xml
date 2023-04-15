@@ -3,8 +3,8 @@
 
     <item
         android:id="@+id/navigation_main"
-        android:icon="@drawable/ic_bm_search_24"
-        android:title="@string/title_search" />
+        android:icon="@drawable/ic_bm_cookbook"
+        android:title="@string/title_cookbook" />
 
     <item
         android:id="@+id/navigation_favorites"
@@ -14,11 +14,11 @@
     <item
         android:id="@+id/navigation_shop_list"
         android:icon="@drawable/ic_bm_shop_list_24"
-        android:title="@string/title_shop_list" />
+        android:title="@string/title_shoplist" />
 
     <item
         android:id="@+id/navigation_own_recipes"
         android:icon="@drawable/ic_bm_edit_recipe_24"
-        android:title="@string/title_edit_recipe" />
+        android:title="@string/title_my_recipes" />
 
 </menu>

@@ -12,8 +12,8 @@ class MainFragment : BaseFragment() {
 
         val recycler = binding.rvRandomRecipes
 
-        viewModel.randomRecipeLiveData.observe(viewLifecycleOwner) {
-            val adapter = RecipeAdapter(it, itemClick, checkboxClick)
+        viewModel.recipeLiveData.observe(viewLifecycleOwner) { rec ->
+            val adapter = RecipeAdapter(rec, itemClick, checkboxClick)
             recycler.adapter = adapter
             recycler.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

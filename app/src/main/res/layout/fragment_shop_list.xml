@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Add products to buy..." />
+        android:text="@string/add_products_to_buy" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_products"
@@ -22,9 +22,9 @@
         android:id="@+id/button_add_products_to_buy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_add_button"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
+        android:background="@drawable/ic_add_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

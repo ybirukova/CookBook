@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Create your own recipe..." />
+        android:text="@string/create_your_own_recipe" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_own_recipes"

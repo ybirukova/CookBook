@@ -1,11 +1,28 @@
 <resources>
     <string name="app_name">CookBook</string>
 
-    <string name="title_search">Search</string>
+    <string name="title_cookbook">Cookbook</string>
     <string name="title_favorites">Favorites</string>
-    <string name="title_shop_list">Shop list</string>
-    <string name="title_edit_recipe">Edit recipe</string>
+    <string name="title_shoplist">Shoplist</string>
+    <string name="title_my_recipes">My recipes</string>
     <string name="search_title">Search...</string>
+
+    <string name="hint_title">Title</string>
+    <string name="add_ingredient">Add ingredient</string>
+    <string name="hint_description">Description</string>
+    <string name="hint_cooking_time">Cooking time</string>
+
+    <string name="no_favorites_yet">No favorites yet…</string>
+    <string name="hint_search">search…</string>
+    <string name="create_your_own_recipe">Create your own recipe…</string>
+    <string name="hint_mealtype">mealtype</string>
+    <string name="hint_45_min">45 min</string>
+    <string name="ingredients">Ingredients:</string>
+    <string name="hint_ingredients_list"> product1\n product2\n product3</string>
+    <string name="go_to_the_recipe">Go to the recipe</string>
+    <string name="add_products_to_buy">Add products to buy…</string>
+    <string name="hint_product_name">Product name</string>
+    <string name="enter_text_for_searching">Enter text for searching…</string>
 
     <string-array name="spinner_array_meal_type">
         <item>Meal type</item>

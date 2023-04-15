@@ -13,28 +13,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <TableRow
+        android:id="@+id/search_view"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
-
-    <EditText
-        android:id="@+id/et_search_click"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="search..."
+        android:layout_height="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/et_search_click"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:hint="@string/hint_search"
+            android:longClickable="false" />
+    </TableRow>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_random_recipes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_search_click" />
+        app:layout_constraintTop_toBottomOf="@+id/search_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

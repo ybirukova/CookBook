@@ -5,6 +5,7 @@ import com.example.cookbook.di.modules.DatabaseModule
 import com.example.cookbook.di.modules.NetworkModule
 import com.example.cookbook.di.modules.RepositoryModule
 import com.example.cookbook.di.modules.ViewModelModule
+import com.example.cookbook.ui.fragments.FullRecipeFragment
 import com.example.cookbook.ui.fragments.SearchFragment
 import com.example.cookbook.ui.fragments_menu.BaseFragment
 import dagger.BindsInstance
@@ -23,4 +24,6 @@ interface ApplicationComponent {
     fun inject(fragment: SearchFragment)
 
     fun inject(fragment: BaseFragment)
+
+    fun inject(fragment: FullRecipeFragment)
 }

@@ -1,8 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.CookBook" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.CookBook" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
+        <item name="titleTextColor">@color/light_gray</item>
         <item name="colorPrimaryVariant">@color/dark_gray</item>
         <item name="android:textColor">@color/dark_gray</item>
         <item name="colorOnPrimary">@color/dark_gray</item>
@@ -13,24 +14,25 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/black</item>
         <item name="android:navigationBarColor">@color/white</item>
-        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+        <!--        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>-->
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    <style name="TextAppearance.MyTheme.Headline1" parent="Widget.MaterialComponents.ActionBar.Primary">
+        <item name="titleTextColor">@color/light_gray</item>
     </style>
 
-    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorOnPrimary">@color/mid_gray</item>
+    <style name="Widget.MyApp.ButtonStyle" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="backgroundColor">@drawable/button_selector</item>
+        <item name="strokeColor">@color/light_gray</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textColor">@color/purple_500</item>
+        <item name="shapeAppearance">@style/Widget.MyApp.ShapeAppearance</item>
     </style>
 
-<!--    <style name="AppTheme" parent="Theme.CookBook">-->
-<!--        <item name="android:actionBarStyle">@style/ActionBar</item>-->
-<!--    </style>-->
+    <style name="Widget.MyApp.ShapeAppearance" parent="ShapeAppearance.MaterialComponents">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
 
-<!--    <style name="ActionBar" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">-->
-<!--        <item name="android:background">@color/white</item>-->
-<!--    </style>-->
 </resources>

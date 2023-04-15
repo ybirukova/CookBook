@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:hint="Product name"
+        android:hint="@string/hint_product_name"
         app:layout_constraintBottom_toBottomOf="@+id/checkBox"
         app:layout_constraintEnd_toStartOf="@+id/button_remove_product"
         app:layout_constraintStart_toEndOf="@id/checkBox"

@@ -9,7 +9,6 @@
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:adjustViewBounds="true"
-        android:background="@color/light_gray"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_default_recipe_pic"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:hint="Title of the recipe"
+        android:hint="@string/hint_title"
         android:maxLines="3"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -57,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:hint="mealtype" />
+                android:hint="@string/hint_mealtype" />
         </TableRow>
 
         <TableRow
@@ -81,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:hint="0 hours 0 min" />
+                android:hint="@string/hint_45_min" />
         </TableRow>
     </LinearLayout>
 

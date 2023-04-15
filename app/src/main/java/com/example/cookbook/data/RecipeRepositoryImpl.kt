@@ -30,7 +30,7 @@ class RecipeRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getRandomRecipeList(): List<RecipeData> {
+    override suspend fun getRecipeList(): List<RecipeData> {
         return withContext(Dispatchers.IO) {
             val list = database.getAllRecipes().map { entityToDataMapper(it) }
             list

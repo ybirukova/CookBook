@@ -26,8 +26,7 @@ abstract class BaseFragment : Fragment() {
     @Inject
     lateinit var factory: ViewModelFactory
     val viewModel: RecipeViewModel by viewModels { factory }
-    private var _binding: FragmentMainBinding? = null
-    val binding get() = _binding!!
+    lateinit var binding: FragmentMainBinding
 
     var itemClick: (RecipeData) -> Unit = { recipe ->
         val fragment = FullRecipeFragment.newInstance(recipe)
@@ -38,7 +37,7 @@ abstract class BaseFragment : Fragment() {
         openFragment(fragment, true)
     }
 
-    var checkboxClick: (RecipeData, Boolean) -> Unit = { recipe, isChecked ->
+    val checkboxClick: (RecipeData, Boolean) -> Unit = { recipe, isChecked ->
         recipe.isFavorite = isChecked
         viewModel.updateIsFavorite(recipe)
     }
@@ -48,7 +47,7 @@ abstract class BaseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding = FragmentMainBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -60,14 +59,6 @@ abstract class BaseFragment : Fragment() {
         val recycler = binding.rvRandomRecipes
         val progressBar = binding.progressBar
 
-        editTextSearch.setOnClickListener {
-            requireActivity().supportFragmentManager
-                .beginTransaction()
-                .add(R.id.container, SearchFragment())
-                .addToBackStack(null)
-                .commit()
-        }
-
         viewModel.loadingLiveData.observe(viewLifecycleOwner) { show ->
             progressBar.isVisible = show
             recycler.isVisible = show.not()
@@ -78,6 +69,14 @@ abstract class BaseFragment : Fragment() {
             ?.let()
             { dividerItemDecoration.setDrawable(it) }
         recycler.addItemDecoration(dividerItemDecoration)
+
+        editTextSearch.setOnClickListener {
+            openFragment(SearchFragment(), true)
+        }
+
+        viewModel.searchLiveData.observe(viewLifecycleOwner) { searchText ->
+            viewModel.searchRecipes(searchText)
+        }
     }
 
     private fun openFragment(fragment: Fragment, addToBackStack: Boolean) {

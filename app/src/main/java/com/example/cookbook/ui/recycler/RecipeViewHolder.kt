@@ -38,8 +38,8 @@ class RecipeViewHolder(
                 .load(recipe.image)
                 .into(image)
 
-        checkbox.setOnCheckedChangeListener { _, isChecked ->
-            checkboxClick.invoke(recipe, isChecked)
+        checkbox.setOnClickListener {
+            checkboxClick.invoke(recipe, checkbox.isChecked)
         }
 
         itemView.setOnClickListener {

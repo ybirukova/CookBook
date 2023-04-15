@@ -6,7 +6,7 @@ interface RecipeRepository {
 
     suspend fun refreshDatabaseWithRandomRecipes()
 
-    suspend fun getRandomRecipeList(): List<RecipeData>
+    suspend fun getRecipeList(): List<RecipeData>
 
     suspend fun getRecipeListBySearching(q: String): List<RecipeData>
 

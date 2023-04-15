@@ -6,20 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.cookbook.R
+import com.example.cookbook.databinding.FragmentMainBinding
 import com.example.cookbook.databinding.FragmentOwnRecipesBinding
 import com.example.cookbook.ui.fragments.CreateRecipeFragment
 
 class OwnRecipesFragment : Fragment() {
 
-    private var _binding: FragmentOwnRecipesBinding? = null
-    private val binding get() = _binding!!
+    lateinit var binding: FragmentOwnRecipesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentOwnRecipesBinding.inflate(inflater, container, false)
+        binding = FragmentOwnRecipesBinding.inflate(layoutInflater)
         return binding.root
     }
 

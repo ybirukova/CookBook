@@ -1,8 +1,14 @@
 package com.example.cookbook.ui
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -38,13 +44,16 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        supportActionBar?.hide()
     }
 
     fun setBottomNavigationVisibility(visibility: Int) {
         binding.navView.visibility = visibility
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        return super.onCreateOptionsMenu(menu)
+    fun hideKeyboardFrom(context: Context, view: View?) {
+        val imm =
+            context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 }
