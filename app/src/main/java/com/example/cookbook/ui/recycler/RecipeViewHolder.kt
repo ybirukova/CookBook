@@ -11,8 +11,8 @@ import com.example.cookbook.domain.models.RecipeData
 
 class RecipeViewHolder(
     itemView: View,
-    private val itemClick: (RecipeData) -> Unit,
-    private val checkboxClick: (RecipeData, Boolean) -> Unit
+    private val itemClickAction: ((RecipeData) -> Unit)? = null,
+    private val toggleIsFavourite: ((RecipeData, Boolean) -> Unit)? = null
 ) :
     RecyclerView.ViewHolder(itemView) {
 
@@ -21,10 +21,9 @@ class RecipeViewHolder(
         val title = itemView.findViewById<TextView>(R.id.tv_title_of_recipe)
         val totalTime = itemView.findViewById<TextView>(R.id.tv_total_time)
         val mealType = itemView.findViewById<TextView>(R.id.tv_meal_type)
+        val isFavourite = itemView.findViewById<CheckBox>(R.id.cb_like)
 
-        val checkbox = itemView.findViewById<CheckBox>(R.id.cb_like)
-
-        checkbox.isChecked = recipe.isFavorite
+        isFavourite.isChecked = recipe.isFavorite
 
         title.text = recipe.label
         totalTime.text = recipe.totalTime
@@ -38,12 +37,12 @@ class RecipeViewHolder(
                 .load(recipe.image)
                 .into(image)
 
-        checkbox.setOnClickListener {
-            checkboxClick.invoke(recipe, checkbox.isChecked)
+        isFavourite.setOnClickListener {
+            toggleIsFavourite?.invoke(recipe, isFavourite.isChecked)
         }
 
         itemView.setOnClickListener {
-            itemClick.invoke(recipe)
+            itemClickAction?.invoke(recipe)
         }
     }
 }
