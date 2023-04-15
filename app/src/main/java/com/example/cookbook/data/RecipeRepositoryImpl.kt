@@ -1,5 +1,7 @@
 package com.example.cookbook.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.example.cookbook.data.mappers.DataToEntityRecipeMapper
 import com.example.cookbook.data.mappers.EntityToDataRecipeMapper
 import com.example.cookbook.data.mappers.ResponseToDataRecipeMapper
@@ -20,20 +22,29 @@ class RecipeRepositoryImpl @Inject constructor(
 
     override suspend fun refreshDatabaseWithRandomRecipes() {
         withContext(Dispatchers.IO) {
-            val list = service.getRandomRecipeList().hits?.map {
-                responseToDataMapper(it)
-            } ?: throw Exception()
-            val listOfEntities = list.map {
-                dataToEntityMapper(it)
+            if (database.getAllRecipes().isEmpty()) {
+                val list = service.getRandomRecipeList().hits?.map {
+                    responseToDataMapper(it)
+                } ?: throw Exception()
+                val listOfEntities = list.map {
+                    dataToEntityMapper(it)
+                }
+                database.insertAllRecipes(*listOfEntities.toTypedArray())
             }
-            database.insertAllRecipe(*listOfEntities.toTypedArray())
         }
     }
 
     override suspend fun getRecipeList(): List<RecipeData> {
         return withContext(Dispatchers.IO) {
-            val list = database.getAllRecipes().map { entityToDataMapper(it) }
-            list
+            database.getAllRecipes().map { entityToDataMapper(it) }
+        }
+    }
+
+    override suspend fun getRecipeListSync(): LiveData<List<RecipeData>> {
+        return Transformations.map(database.getAllRecipesSync()) {
+            it.map { entity ->
+                entityToDataMapper(entity)
+            }
         }
     }
 
@@ -55,6 +66,21 @@ class RecipeRepositoryImpl @Inject constructor(
         return withContext(Dispatchers.IO) {
             val list = database.getFavoriteRecipes(true).map { entityToDataMapper(it) }
             list
+        }
+    }
+
+    override suspend fun addFavoriteRecipe(recipe: RecipeData) {
+        return withContext(Dispatchers.IO) {
+            val entity = dataToEntityMapper(recipe)
+            database.insertAllRecipes(entity)
+        }
+    }
+
+    override suspend fun getFavoriteRecipeListSync(): LiveData<List<RecipeData>> {
+        return Transformations.map(database.getFavoriteRecipesSync(isFavorite = true)) {
+            it.map { entity ->
+                entityToDataMapper(entity)
+            }
         }
     }
 }

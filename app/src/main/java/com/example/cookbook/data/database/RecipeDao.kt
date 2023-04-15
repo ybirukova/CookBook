@@ -1,5 +1,6 @@
 package com.example.cookbook.data.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -9,16 +10,22 @@ import androidx.room.Query
 interface RecipeDao {
 
     @Query("SELECT * FROM recipe_table")
-    fun getAllRecipe(): List<RecipeEntity>
+    fun getAllRecipes(): List<RecipeEntity>
+
+    @Query("SELECT * FROM recipe_table")
+    fun getAllRecipesSync(): LiveData<List<RecipeEntity>>
 
     @Query("SELECT * FROM recipe_table WHERE isFavorite = :isFavorite")
     fun getFavoriteRecipes(isFavorite: Boolean): List<RecipeEntity>
+
+    @Query("SELECT * FROM recipe_table WHERE isFavorite = :isFavorite")
+    fun getFavoriteRecipesSync(isFavorite: Boolean): LiveData<List<RecipeEntity>>
 
     @Query("SELECT * FROM recipe_table WHERE id = :id")
     fun getRecipeById(id: Int): RecipeEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllRecipe(vararg recipes: RecipeEntity)
+    fun insertAllRecipes(vararg recipes: RecipeEntity)
 
     @Query("DELETE FROM recipe_table WHERE isFavorite = false")
     fun deleteAll()

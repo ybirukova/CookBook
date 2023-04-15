@@ -7,7 +7,9 @@ import com.example.cookbook.di.modules.RepositoryModule
 import com.example.cookbook.di.modules.ViewModelModule
 import com.example.cookbook.ui.fragments.FullRecipeFragment
 import com.example.cookbook.ui.fragments.SearchFragment
-import com.example.cookbook.ui.fragments_menu.BaseFragment
+import com.example.cookbook.ui.fragments_menu.AllRecipesFragment
+import com.example.cookbook.ui.fragments_menu.FavoriteRecipesFragment
+import com.example.cookbook.ui.fragments_menu.RecipesListBaseFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -23,7 +25,11 @@ interface ApplicationComponent {
 
     fun inject(fragment: SearchFragment)
 
-    fun inject(fragment: BaseFragment)
+    fun inject(fragment: AllRecipesFragment)
+
+    fun inject(fragment: FavoriteRecipesFragment)
+
+    fun inject(fragment: RecipesListBaseFragment)
 
     fun inject(fragment: FullRecipeFragment)
 }

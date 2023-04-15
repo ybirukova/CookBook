@@ -1,5 +1,6 @@
 package com.example.cookbook.data
 
+import androidx.lifecycle.LiveData
 import com.example.cookbook.data.database.RecipeDao
 import com.example.cookbook.data.database.RecipeEntity
 import javax.inject.Inject
@@ -9,16 +10,23 @@ class DatabaseSource @Inject constructor(
 ) {
 
     fun getAllRecipes(): List<RecipeEntity> {
-        return recipeDao.getAllRecipe()
+        return recipeDao.getAllRecipes()
     }
 
-    fun insertAllRecipe(vararg recipes: RecipeEntity) {
-        recipeDao.deleteAll()
-        recipeDao.insertAllRecipe(*recipes)
+    fun getAllRecipesSync(): LiveData<List<RecipeEntity>> {
+        return recipeDao.getAllRecipesSync()
+    }
+
+    fun insertAllRecipes(vararg recipes: RecipeEntity) {
+        recipeDao.insertAllRecipes(*recipes)
     }
 
     fun getFavoriteRecipes(isFavorite: Boolean): List<RecipeEntity> {
         return recipeDao.getFavoriteRecipes(isFavorite)
+    }
+
+    fun getFavoriteRecipesSync(isFavorite: Boolean): LiveData<List<RecipeEntity>> {
+        return recipeDao.getFavoriteRecipesSync(isFavorite)
     }
 
     fun updateIsFavorite(isFavorite: Boolean, id: Int) {
