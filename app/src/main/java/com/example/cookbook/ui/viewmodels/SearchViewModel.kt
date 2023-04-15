@@ -9,7 +9,7 @@ import com.example.cookbook.domain.repository.RecipeRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class RecipeViewModel @Inject constructor(private val recipeRepository: RecipeRepository) :
+class SearchViewModel @Inject constructor(private val recipeRepository: RecipeRepository) :
     ViewModel() {
 
     private val _recipeLiveData = MutableLiveData<List<RecipeData>>()
@@ -21,53 +21,26 @@ class RecipeViewModel @Inject constructor(private val recipeRepository: RecipeRe
     private val _searchResultLiveData = MutableLiveData<List<RecipeData>>()
     val searchResultLiveData: LiveData<List<RecipeData>> get() = _searchResultLiveData
 
-    private val _loadingLiveData = MutableLiveData<Boolean>()
-    val loadingLiveData: LiveData<Boolean> get() = _loadingLiveData
+    private val _isLoading = MutableLiveData(true)
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
 
     private val _searchLiveData = MutableLiveData<String>()
     val searchLiveData: MutableLiveData<String> get() = _searchLiveData
 
-    init {
-//        refreshRandomRecipes()
-        observeRandomRecipes()
-    }
-
-    private fun refreshRandomRecipes() {
-        viewModelScope.launch {
-            recipeRepository.refreshDatabaseWithRandomRecipes()
-        }
-    }
-
-    private fun observeRandomRecipes() {
-        _loadingLiveData.value = true
-        viewModelScope.launch {
-            _recipeLiveData.value = recipeRepository.getRecipeList()
-            _loadingLiveData.value = false
-        }
-    }
-
-    fun observeFavoriteRecipes() {
-        _loadingLiveData.value = true
-        viewModelScope.launch {
-            _favoriteRecipeLiveData.value = recipeRepository.getFavoriteRecipeList()
-            _loadingLiveData.value = false
-        }
-    }
-
     fun searchRecipes(q: String) {
-            viewModelScope.launch {
-                val list = recipeRepository.getRecipeListBySearching(q)
-                _searchResultLiveData.value = list
-                _loadingLiveData.value = false
-            }
+        viewModelScope.launch {
+            val list = recipeRepository.getRecipeListBySearching(q)
+            _searchResultLiveData.value = list
+            _isLoading.value = false
+        }
     }
 
-    fun setSearchWord(str: String) {
-        _searchLiveData.value = str
-    }
-
-    fun nullSearchResult() {
-        _searchResultLiveData.value = listOf()
+    fun addFavoriteRecipe(recipe: RecipeData) {
+        viewModelScope.launch {
+            recipeRepository.addFavoriteRecipe(recipe)
+            _favoriteRecipeLiveData.value = recipeRepository.getFavoriteRecipeList()
+        }
     }
 
     fun updateIsFavorite(recipe: RecipeData) {
