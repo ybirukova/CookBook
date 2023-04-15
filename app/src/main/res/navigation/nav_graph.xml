@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_main"
-        android:name="com.example.cookbook.ui.fragments_menu.MainFragment"
+        android:name="com.example.cookbook.ui.fragments_menu.AllRecipesFragment"
         android:label="Main"
-        tools:layout="@layout/fragment_main">
+        tools:layout="@layout/fragment_all_recipes">
         <action
             android:id="@+id/action_navigation_search_to_fragmentRecipe"
             app:destination="@id/fragmentRecipe" />
@@ -20,9 +20,9 @@
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.example.cookbook.ui.fragments_menu.FavoritesRecipeFragment"
+        android:name="com.example.cookbook.ui.fragments_menu.FavoriteRecipesFragment"
         android:label="Favorites"
-        tools:layout="@layout/fragment_favorites">
+        tools:layout="@layout/fragment_favorites_recipes">
         <action
             android:id="@+id/action_navigation_favorites_to_fragmentRecipe"
             app:destination="@id/fragmentRecipe" />
@@ -38,7 +38,11 @@
         android:id="@+id/navigation_own_recipes"
         android:name="com.example.cookbook.ui.fragments_menu.OwnRecipesFragment"
         android:label="Own Recipes"
-        tools:layout="@layout/fragment_own_recipes" />
+        tools:layout="@layout/fragment_own_recipes" >
+        <action
+            android:id="@+id/action_navigation_own_recipes_to_fragmentCreateRecipe"
+            app:destination="@id/fragmentCreateRecipe" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragmentRecipe"
@@ -54,6 +58,13 @@
         <action
             android:id="@+id/action_fragmentSearch_to_fragmentRecipe"
             app:destination="@id/fragmentRecipe" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentCreateRecipe"
+        android:name="com.example.cookbook.ui.fragments.CreateRecipeFragment"
+        android:label="Create"
+        tools:layout="@layout/fragment_create_recipe">
     </fragment>
 
 </navigation>

@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">CookBook</string>
+
+    <string name="title_cookbook">Cookbook</string>
+    <string name="title_favorites">Избранные</string>
+    <string name="title_shoplist">Список покупок</string>
+    <string name="title_my_recipes">Мои рецепты</string>
+    <string name="search_title">Поиск…</string>
+
+    <string name="hint_title">Заголовок</string>
+    <string name="hint_description">Описание</string>
+    <string name="hint_cooking_time">Время готовки</string>
+
+    <string name="no_favorites_yet">Пока нету избранных…</string>
+    <string name="hint_search">поиск…</string>
+    <string name="create_your_own_recipe">Создайте свой собственный рецепт…</string>
+    <string name="hint_mealtype">тип блюда</string>
+    <string name="hint_45_min">45 мин</string>
+    <string name="ingredients">Ингредиенты:</string>
+    <string name="ingredients_1">Ингредиенты</string>
+    <string name="hint_ingredients_list"> product1\n product2\n product3</string>
+    <string name="go_to_the_recipe">Перейти к рецепту</string>
+    <string name="add_products_to_buy">Добавить продукт для покупки…</string>
+    <string name="hint_product_name">Название продукта</string>
+    <string name="enter_text_for_searching">Введите текст для поиска…</string>
+
+    <string name="title_mealtype">Тип блюда:</string>
+    <string name="title_cooking_time">Время готовки:</string>
+    <string name="min">мин</string>
+    <string name="hours">ч</string>
+    <string-array name="spinner_array_meal_type">
+        <item></item>
+        <item>завтрак</item>
+        <item>перекус</item>
+        <item>обед</item>
+        <item>полдник</item>
+        <item>ужин</item>
+    </string-array>
+
+</resources>

@@ -5,10 +5,9 @@
     <string name="title_favorites">Favorites</string>
     <string name="title_shoplist">Shoplist</string>
     <string name="title_my_recipes">My recipes</string>
-    <string name="search_title">Search...</string>
+    <string name="search_title">Search…</string>
 
     <string name="hint_title">Title</string>
-    <string name="add_ingredient">Add ingredient</string>
     <string name="hint_description">Description</string>
     <string name="hint_cooking_time">Cooking time</string>
 
@@ -18,19 +17,23 @@
     <string name="hint_mealtype">mealtype</string>
     <string name="hint_45_min">45 min</string>
     <string name="ingredients">Ingredients:</string>
+    <string name="ingredients_1">Ingredients</string>
     <string name="hint_ingredients_list"> product1\n product2\n product3</string>
     <string name="go_to_the_recipe">Go to the recipe</string>
     <string name="add_products_to_buy">Add products to buy…</string>
     <string name="hint_product_name">Product name</string>
     <string name="enter_text_for_searching">Enter text for searching…</string>
 
+    <string name="title_mealtype">Mealtype:</string>
+    <string name="title_cooking_time">Cooking time:</string>
+    <string name="min">min</string>
+    <string name="hours">h</string>
     <string-array name="spinner_array_meal_type">
-        <item>Meal type</item>
+        <item></item>
         <item>breakfast</item>
         <item>snack</item>
         <item>lunch</item>
         <item>tea</item>
-        <item>supper</item>
         <item>dinner</item>
     </string-array>
 

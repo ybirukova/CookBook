@@ -2,9 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:clickable="true">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/search_view"
@@ -16,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/et_search"
+            android:id="@+id/et_search_click"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -24,34 +22,30 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:focusable="true"
+            android:cursorVisible="false"
+            android:focusable="false"
             android:hint="@string/hint_search"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:singleLine="true" />
-
-        <ImageButton
-            android:id="@+id/ib_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="15dp"
-            android:background="@color/transparent"
-            android:src="@drawable/ic_close"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:longClickable="false" />
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_enter_text_for_searching"
+        android:id="@+id/placeholder_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="@string/enter_text_for_searching" />
+        android:text="@string/no_favorites_yet" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_search_result"
+        android:id="@+id/favorites_recipes_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
