@@ -5,19 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.cookbook.databinding.FragmentOwnRecipesBinding
 import com.example.cookbook.databinding.FragmentShopListBinding
 
 class ShopListFragment : Fragment() {
 
-    lateinit var binding: FragmentOwnRecipesBinding
+    lateinit var binding: FragmentShopListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentOwnRecipesBinding.inflate(layoutInflater)
+        binding = FragmentShopListBinding.inflate(layoutInflater)
         val view = binding.root
         return view
     }

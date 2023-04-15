@@ -16,7 +16,7 @@ import com.example.cookbook.databinding.FragmentRecipeBinding
 import com.example.cookbook.di.ViewModelFactory
 import com.example.cookbook.domain.models.RecipeData
 import com.example.cookbook.ui.MainActivity
-import com.example.cookbook.ui.viewmodels.RecipeViewModel
+import com.example.cookbook.ui.viewmodels.SearchViewModel
 import javax.inject.Inject
 
 
@@ -37,7 +37,7 @@ class FullRecipeFragment : Fragment() {
 
     @Inject
     lateinit var factory: ViewModelFactory
-    val viewModel: RecipeViewModel by viewModels { factory }
+    val viewModel: SearchViewModel by viewModels { factory }
     lateinit var binding: FragmentRecipeBinding
 
     override fun onCreateView(
