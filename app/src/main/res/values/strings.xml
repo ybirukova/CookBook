@@ -23,6 +23,8 @@
     <string name="add_products_to_buy">Add products to buy…</string>
     <string name="hint_product_name">Product name</string>
     <string name="enter_text_for_searching">Enter text for searching…</string>
+    <string name="create_recipe_error_text">Fields of the title, ingredients, description need to be filled</string>
+    <string name="create_recipe_success_text">Recipe is create successful</string>
 
     <string name="title_mealtype">Mealtype:</string>
     <string name="title_cooking_time">Cooking time:</string>

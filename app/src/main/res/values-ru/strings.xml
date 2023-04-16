@@ -23,6 +23,8 @@
     <string name="add_products_to_buy">Добавить продукт для покупки…</string>
     <string name="hint_product_name">Название продукта</string>
     <string name="enter_text_for_searching">Введите текст для поиска…</string>
+    <string name="create_recipe_error_text">Поля заголовка, ингредиентов и описания должны быть заполнены</string>
+    <string name="create_recipe_success_text">Рецепт создан успешно</string>
 
     <string name="title_mealtype">Тип блюда:</string>
     <string name="title_cooking_time">Время готовки:</string>

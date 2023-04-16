@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.cookbook.di.ViewModelKey
 import com.example.cookbook.ui.viewmodels.AllRecipesViewModel
 import com.example.cookbook.ui.viewmodels.FavouriteRecipesViewModel
+import com.example.cookbook.ui.viewmodels.OwnRecipesViewModel
 import com.example.cookbook.ui.viewmodels.SearchViewModel
 import dagger.Binds
 import dagger.Module
@@ -25,4 +26,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(FavouriteRecipesViewModel::class)
     fun bindFavouriteRecipesViewModel(viewModel: FavouriteRecipesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OwnRecipesViewModel::class)
+    fun bindOwnRecipesViewModel(viewModel: OwnRecipesViewModel): ViewModel
 }

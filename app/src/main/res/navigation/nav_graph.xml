@@ -29,16 +29,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_shop_list"
-        android:name="com.example.cookbook.ui.fragments_menu.ShopListFragment"
-        android:label="Shop List"
-        tools:layout="@layout/fragment_shop_list" />
-
-    <fragment
         android:id="@+id/navigation_own_recipes"
         android:name="com.example.cookbook.ui.fragments_menu.OwnRecipesFragment"
         android:label="Own Recipes"
-        tools:layout="@layout/fragment_own_recipes" >
+        tools:layout="@layout/fragment_own_recipes">
         <action
             android:id="@+id/action_navigation_own_recipes_to_fragmentCreateRecipe"
             app:destination="@id/fragmentCreateRecipe" />
@@ -64,7 +58,6 @@
         android:id="@+id/fragmentCreateRecipe"
         android:name="com.example.cookbook.ui.fragments.CreateRecipeFragment"
         android:label="Create"
-        tools:layout="@layout/fragment_create_recipe">
-    </fragment>
+        tools:layout="@layout/fragment_create_recipe"></fragment>
 
 </navigation>

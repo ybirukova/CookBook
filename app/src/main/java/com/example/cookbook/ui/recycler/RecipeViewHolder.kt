@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cookbook.R
@@ -13,8 +14,7 @@ class RecipeViewHolder(
     itemView: View,
     private val itemClickAction: ((RecipeData) -> Unit)? = null,
     private val toggleIsFavourite: ((RecipeData, Boolean) -> Unit)? = null
-) :
-    RecyclerView.ViewHolder(itemView) {
+) : RecyclerView.ViewHolder(itemView) {
 
     fun onBind(recipe: RecipeData) {
         val image = itemView.findViewById<ImageView>(R.id.iv_image_of_dish)
@@ -23,6 +23,9 @@ class RecipeViewHolder(
         val mealType = itemView.findViewById<TextView>(R.id.tv_meal_type)
         val isFavourite = itemView.findViewById<CheckBox>(R.id.cb_like)
 
+        if (!recipe.url.startsWith("http")) {
+            isFavourite.isVisible = false
+        }
         isFavourite.isChecked = recipe.isFavorite
 
         title.text = recipe.label

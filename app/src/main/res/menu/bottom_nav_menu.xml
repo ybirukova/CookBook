@@ -12,11 +12,6 @@
         android:title="@string/title_favorites" />
 
     <item
-        android:id="@+id/navigation_shop_list"
-        android:icon="@drawable/ic_bm_shop_list_24"
-        android:title="@string/title_shoplist" />
-
-    <item
         android:id="@+id/navigation_own_recipes"
         android:icon="@drawable/ic_bm_edit_recipe_24"
         android:title="@string/title_my_recipes" />

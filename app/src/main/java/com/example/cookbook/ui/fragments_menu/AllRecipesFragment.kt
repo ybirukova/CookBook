@@ -1,7 +1,6 @@
 package com.example.cookbook.ui.fragments_menu
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,8 +40,6 @@ class AllRecipesFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        Log.d("Fragment1", "onCreateView")
-
         binding = FragmentAllRecipesBinding.inflate(layoutInflater)
         return binding.root
     }

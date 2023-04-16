@@ -1,4 +1,4 @@
-package com.example.cookbook.data
+package com.example.cookbook.data.database_sources
 
 import androidx.lifecycle.LiveData
 import com.example.cookbook.data.database.RecipeDao

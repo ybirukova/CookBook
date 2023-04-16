@@ -30,4 +30,5 @@ class RecipesAdapter(
     }
 
     override fun getItemCount(): Int = recipesList.size
+
 }

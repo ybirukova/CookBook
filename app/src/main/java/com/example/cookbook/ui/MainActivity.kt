@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.navigation_main,
                 R.id.navigation_favorites,
-                R.id.navigation_shop_list,
                 R.id.navigation_own_recipes
             )
         )

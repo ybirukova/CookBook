@@ -3,6 +3,7 @@ package com.example.cookbook.di.modules
 import android.content.Context
 import androidx.room.Room
 import com.example.cookbook.data.database.AppDatabase
+import com.example.cookbook.data.database.OwnRecipeDao
 import com.example.cookbook.data.database.RecipeDao
 import dagger.Module
 import dagger.Provides
@@ -21,4 +22,8 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun getRandomRecipeDao(db: AppDatabase): RecipeDao = db.getRandomRecipeDao()
+
+    @Provides
+    @Singleton
+    fun getOwnRecipeDao(db: AppDatabase): OwnRecipeDao = db.getOwnRecipeDao()
 }

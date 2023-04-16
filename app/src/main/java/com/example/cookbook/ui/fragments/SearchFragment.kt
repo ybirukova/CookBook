@@ -62,7 +62,7 @@ class SearchFragment : BaseFragment() {
         close()
     }
 
-    private fun close(){
+    private fun close() {
         val closeItem = binding.ibClose
         closeItem.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
@@ -71,7 +71,7 @@ class SearchFragment : BaseFragment() {
 
     private fun setEditTextListener() {
         val editTextSearch = binding.etSearch
-
+        editTextSearch.requestFocus()
         editTextSearch.setOnEditorActionListener { textView, actionId, _ ->
             (activity as MainActivity).hideKeyboardFrom(requireContext(), requireView())
 
