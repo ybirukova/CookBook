@@ -35,9 +35,11 @@ class ResponseToDataRecipeMapper @Inject constructor() {
         calendar.set(Calendar.MINUTE, totalTimeInt)
         val hours = calendar.get(Calendar.HOUR_OF_DAY)
         val min = calendar.get(Calendar.MINUTE)
-        val hoursStr = if (hours == ZERO) DASH else "$hours h "
-        val minStr = if (min == ZERO) DASH else "$min min"
-
-        return hoursStr + minStr
+        val hoursStr = if (hours == ZERO) DASH else "$hours"
+        val minStr = if (min == ZERO) DASH else "$min"
+        return if (hours == 0 && min == 0) {
+            DASH
+        } else
+            "$hoursStr h $minStr min"
     }
 }
