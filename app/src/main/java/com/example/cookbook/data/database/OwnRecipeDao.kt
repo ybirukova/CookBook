@@ -18,6 +18,6 @@ interface OwnRecipeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllRecipes(vararg recipes: OwnRecipeEntity)
 
-    @Query("DELETE FROM recipe_table WHERE id = :id")
+    @Query("DELETE FROM own_recipe_table WHERE id = :id")
     fun deleteRecipe(id: Int)
 }

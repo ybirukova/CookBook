@@ -6,7 +6,7 @@ import com.example.cookbook.data.database.RecipeEntity
 import javax.inject.Inject
 
 class DatabaseSource @Inject constructor(
-    private val recipeDao: RecipeDao,
+    private val recipeDao: RecipeDao
 ) {
 
     fun getAllRecipes(): List<RecipeEntity> {

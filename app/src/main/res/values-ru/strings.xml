@@ -15,7 +15,6 @@
     <string name="hint_search">поиск…</string>
     <string name="create_your_own_recipe">Создайте свой собственный рецепт…</string>
     <string name="hint_mealtype">тип блюда</string>
-    <string name="hint_45_min">45 мин</string>
     <string name="ingredients">Ингредиенты:</string>
     <string name="ingredients_1">Ингредиенты</string>
     <string name="hint_ingredients_list"> product1\n product2\n product3</string>
@@ -25,11 +24,14 @@
     <string name="enter_text_for_searching">Введите текст для поиска…</string>
     <string name="create_recipe_error_text">Поля заголовка, ингредиентов и описания должны быть заполнены</string>
     <string name="create_recipe_success_text">Рецепт создан успешно</string>
+    <string name="impossible_value">Невозможное значение</string>
 
     <string name="title_mealtype">Тип блюда:</string>
     <string name="title_cooking_time">Время готовки:</string>
     <string name="min">мин</string>
     <string name="hours">ч</string>
+    <string name="new_recipe">Новый рецепт</string>
+    <string name="save">Сохранить</string>
     <string-array name="spinner_array_meal_type">
         <item></item>
         <item>завтрак</item>

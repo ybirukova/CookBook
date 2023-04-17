@@ -26,7 +26,7 @@ class RecipeRepositoryImpl @Inject constructor(
             if (database.getAllRecipes().isEmpty()) {
                 val list = service.getRandomRecipeList().hits?.map {
                     responseToDataMapper(it)
-                } ?: throw Exception()
+                } ?: throw Exception(ERROR_MESSAGE)
                 val listOfEntities = list.map {
                     dataToEntityMapper(it)
                 }
@@ -53,7 +53,7 @@ class RecipeRepositoryImpl @Inject constructor(
         return withContext(Dispatchers.IO) {
             service.getRecipeListBySearching(q).hits?.map {
                 responseToDataMapper(it)
-            } ?: throw Exception()
+            } ?: throw Exception(ERROR_MESSAGE)
         }
     }
 
@@ -83,5 +83,9 @@ class RecipeRepositoryImpl @Inject constructor(
                 entityToDataMapper(entity)
             }
         }
+    }
+
+    companion object {
+        private const val ERROR_MESSAGE = "Service error"
     }
 }

@@ -3,12 +3,13 @@ package com.example.cookbook.ui.recycler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cookbook.R
+import com.example.cookbook.databinding.RecipeItemBinding
 import com.example.cookbook.domain.models.RecipeData
 
 class RecipesAdapter(
-    private val itemClickAction: ((RecipeData) -> Unit)? = null,
-    private val toggleIsFavourite: ((RecipeData, Boolean) -> Unit)? = null
+    private val itemClickAction: ((RecipeData) -> Unit),
+    private val toggleIsFavourite: ((RecipeData, Boolean) -> Unit)? = null,
+    private val removeRecipe: ((Int) -> Unit)? = null
 ) : RecyclerView.Adapter<RecipeViewHolder>() {
 
     private var recipesList: MutableList<RecipeData> = mutableListOf()
@@ -20,9 +21,9 @@ class RecipesAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.recipe_item, parent, false)
-        return RecipeViewHolder(view, itemClickAction, toggleIsFavourite)
+        val binding = RecipeItemBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return RecipeViewHolder(binding, itemClickAction, toggleIsFavourite, removeRecipe)
     }
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
@@ -30,5 +31,4 @@ class RecipesAdapter(
     }
 
     override fun getItemCount(): Int = recipesList.size
-
 }

@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/navigation_main"
-        android:name="com.example.cookbook.ui.fragments_menu.AllRecipesFragment"
+        android:name="com.example.cookbook.ui.all_recipes.AllRecipesFragment"
         android:label="Main"
         tools:layout="@layout/fragment_all_recipes">
         <action
             android:id="@+id/action_navigation_search_to_fragmentRecipe"
-            app:destination="@id/fragmentRecipe" />
+            app:destination="@id/fragmentFullRecipe" />
         <action
             android:id="@+id/action_navigation_main_to_fragmentSearch"
             app:destination="@id/fragmentSearch" />
@@ -20,44 +20,52 @@
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.example.cookbook.ui.fragments_menu.FavoriteRecipesFragment"
+        android:name="com.example.cookbook.ui.favorite_recipes.FavoriteRecipesFragment"
         android:label="Favorites"
         tools:layout="@layout/fragment_favorites_recipes">
         <action
             android:id="@+id/action_navigation_favorites_to_fragmentRecipe"
-            app:destination="@id/fragmentRecipe" />
+            app:destination="@id/fragmentFullRecipe" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_own_recipes"
-        android:name="com.example.cookbook.ui.fragments_menu.OwnRecipesFragment"
+        android:name="com.example.cookbook.ui.create_recipe.OwnRecipesFragment"
         android:label="Own Recipes"
         tools:layout="@layout/fragment_own_recipes">
         <action
             android:id="@+id/action_navigation_own_recipes_to_fragmentCreateRecipe"
             app:destination="@id/fragmentCreateRecipe" />
+        <action
+            android:id="@+id/action_navigation_own_recipes_to_fragmentRecipe"
+            app:destination="@id/fragmentFullRecipe" />
     </fragment>
 
     <fragment
-        android:id="@+id/fragmentRecipe"
-        android:name="com.example.cookbook.ui.fragments.FullRecipeFragment"
+        android:id="@+id/fragmentFullRecipe"
+        android:name="com.example.cookbook.ui.all_recipes.FullRecipeFragment"
         android:label="RecipeFragment"
-        tools:layout="@layout/fragment_recipe" />
+        tools:layout="@layout/fragment_recipe">
+    <argument
+        android:name="Recipe"
+        android:defaultValue="@null"
+        app:argType="com.example.cookbook.domain.models.RecipeData" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragmentSearch"
-        android:name="com.example.cookbook.ui.fragments.SearchFragment"
+        android:name="com.example.cookbook.ui.search_recipes.SearchFragment"
         android:label="Search"
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_fragmentSearch_to_fragmentRecipe"
-            app:destination="@id/fragmentRecipe" />
+            app:destination="@id/fragmentFullRecipe" />
     </fragment>
 
     <fragment
         android:id="@+id/fragmentCreateRecipe"
-        android:name="com.example.cookbook.ui.fragments.CreateRecipeFragment"
+        android:name="com.example.cookbook.ui.create_recipe.CreateRecipeFragment"
         android:label="Create"
-        tools:layout="@layout/fragment_create_recipe"></fragment>
+        tools:layout="@layout/fragment_create_recipe" />
 
 </navigation>

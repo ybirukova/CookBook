@@ -1,4 +1,4 @@
-package com.example.cookbook.ui.viewmodels
+package com.example.cookbook.ui.favorite_recipes
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

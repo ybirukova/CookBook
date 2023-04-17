@@ -14,7 +14,7 @@ class OwnEntityToDataRecipeMapper @Inject constructor() {
             image = EMPTY_STRING,
             url = description,
             mealType = mealType,
-            ingredientLines = listOf(ingredients),
+            ingredientLines = listOf(*ingredients.split("\n").toTypedArray()),
             totalTime = totalTime,
             isFavorite = false
         )

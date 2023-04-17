@@ -1,4 +1,4 @@
-package com.example.cookbook.ui.viewmodels
+package com.example.cookbook.ui.all_recipes
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,10 +17,6 @@ class AllRecipesViewModel @Inject constructor(private val recipeRepository: Reci
     private val _isLoading = MutableLiveData(true)
     val isLoading: LiveData<Boolean>
         get() = _isLoading
-
-    private val _searchResultLiveData = MutableLiveData<List<RecipeData>>()
-    val searchResultLiveData: LiveData<List<RecipeData>>
-        get() = _searchResultLiveData
 
     init {
         refreshRecipes()

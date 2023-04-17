@@ -10,6 +10,7 @@ import org.junit.Test
 class ResponseToDataMapperTest {
     @Test
     fun mapper_isCorrect() {
+
         val mapper = ResponseToDataRecipeMapper()
         val response =
             ItemOfRecipeListResponse(
@@ -22,7 +23,11 @@ class ResponseToDataMapperTest {
                     60.0
                 )
             )
-        val data = RecipeData("qqq", "http", "http", "dinner", listOf("qwe", "asd"), "1 h")
+        val data =
+            RecipeData(
+                0, "qqq", "http", "http", "dinner",
+                listOf("qwe", "asd"), "1 h", false
+            )
         Assert.assertEquals(data, mapper(response))
     }
 }

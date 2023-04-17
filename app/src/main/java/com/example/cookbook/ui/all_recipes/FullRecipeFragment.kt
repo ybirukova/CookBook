@@ -1,4 +1,4 @@
-package com.example.cookbook.ui.fragments
+package com.example.cookbook.ui.all_recipes
 
 import android.content.Context
 import android.content.Intent
@@ -17,51 +17,37 @@ import com.example.cookbook.databinding.FragmentRecipeBinding
 import com.example.cookbook.di.ViewModelFactory
 import com.example.cookbook.domain.models.RecipeData
 import com.example.cookbook.ui.MainActivity
-import com.example.cookbook.ui.viewmodels.SearchViewModel
-import java.io.Serializable
+import com.example.cookbook.ui.search_recipes.SearchViewModel
 import javax.inject.Inject
 
 class FullRecipeFragment : Fragment() {
-
-    companion object {
-        private const val RECIPE = "RECIPE"
-
-        fun newInstance(recipe: Serializable): FullRecipeFragment {
-            val args = Bundle()
-            args.putSerializable(RECIPE, recipe)
-
-            val fragment = FullRecipeFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
 
     @Inject
     lateinit var factory: ViewModelFactory
     val viewModel: SearchViewModel by viewModels { factory }
 
-    private lateinit var binding: FragmentRecipeBinding
+    private var _binding: FragmentRecipeBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onAttach(context: Context) {
+        (activity?.application as RecipeApp).appComponent.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentRecipeBinding.inflate(inflater, container, false)
+        _binding = FragmentRecipeBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onAttach(context: Context) {
-        (activity as MainActivity).setBottomNavigationVisibility(View.GONE)
-        super.onAttach(context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity?.application as RecipeApp).appComponent.inject(this)
+        (activity as MainActivity).setBottomNavigationVisibility(View.GONE)
 
-        val recipe = arguments?.getSerializable("RECIPE") as? RecipeData
-
+        val recipe = arguments?.getParcelable("RECIPE") as? RecipeData
         if (recipe != null) {
             setItems(view, recipe)
             setClickListeners(recipe)
@@ -69,11 +55,11 @@ class FullRecipeFragment : Fragment() {
     }
 
     private fun setItems(view: View, recipe: RecipeData) {
-        val title = binding.tvFrTitle
-        val mealType = binding.tvFrMealType
-        val totalTime = binding.tvFrTotalTime
-        val ingredients = binding.tvFrIngredients
-        val image = binding.ivFrImage
+        val title = binding.tvTitle
+        val mealType = binding.tvMealType
+        val totalTime = binding.tvTotalTime
+        val ingredients = binding.tvIngredients
+        val image = binding.ivImage
         val checkbox = binding.cbLike
         val button = binding.buttonLink
 
@@ -86,11 +72,12 @@ class FullRecipeFragment : Fragment() {
 
         if (recipe.image.isBlank()) {
             image.setImageResource(R.drawable.ic_default_recipe_pic)
-        } else
+        } else {
             Glide
                 .with(view.context)
                 .load(recipe.image)
                 .into(image)
+        }
 
         title.text = recipe.label
         mealType.text = recipe.mealType
@@ -101,8 +88,8 @@ class FullRecipeFragment : Fragment() {
 
     private fun setClickListeners(recipe: RecipeData) {
         binding.cbLike.setOnCheckedChangeListener { _, isChecked ->
-            recipe.isFavorite = isChecked
-            viewModel.updateIsFavorite(recipe)
+            val newRecipe = recipe.copy(isFavorite = isChecked)
+            viewModel.updateIsFavorite(newRecipe)
         }
 
         binding.buttonLink.setOnClickListener {
