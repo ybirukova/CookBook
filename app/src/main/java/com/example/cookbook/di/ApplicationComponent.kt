@@ -5,13 +5,12 @@ import com.example.cookbook.di.modules.DatabaseModule
 import com.example.cookbook.di.modules.NetworkModule
 import com.example.cookbook.di.modules.RepositoryModule
 import com.example.cookbook.di.modules.ViewModelModule
-import com.example.cookbook.ui.fragments.CreateRecipeFragment
-import com.example.cookbook.ui.fragments.FullRecipeFragment
-import com.example.cookbook.ui.fragments.SearchFragment
-import com.example.cookbook.ui.fragments_menu.AllRecipesFragment
-import com.example.cookbook.ui.fragments_menu.FavoriteRecipesFragment
-import com.example.cookbook.ui.fragments_menu.OwnRecipesFragment
-import com.example.cookbook.ui.fragments_menu.RecipesListBaseFragment
+import com.example.cookbook.ui.create_recipe.CreateRecipeFragment
+import com.example.cookbook.ui.all_recipes.FullRecipeFragment
+import com.example.cookbook.ui.search_recipes.SearchFragment
+import com.example.cookbook.ui.all_recipes.AllRecipesFragment
+import com.example.cookbook.ui.favorite_recipes.FavoriteRecipesFragment
+import com.example.cookbook.ui.create_recipe.OwnRecipesFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -30,8 +29,6 @@ interface ApplicationComponent {
     fun inject(fragment: AllRecipesFragment)
 
     fun inject(fragment: FavoriteRecipesFragment)
-
-    fun inject(fragment: RecipesListBaseFragment)
 
     fun inject(fragment: FullRecipeFragment)
 

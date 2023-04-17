@@ -1,7 +1,9 @@
 package com.example.cookbook.domain.models
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class RecipeData(
     val id: Int,
     val label: String,
@@ -10,5 +12,5 @@ data class RecipeData(
     val mealType: String,
     val ingredientLines: List<String>,
     val totalTime: String,
-    var isFavorite: Boolean
-) : Serializable
+    val isFavorite: Boolean
+) : Parcelable
