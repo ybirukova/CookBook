@@ -17,7 +17,7 @@ class NetworkModule {
     fun getOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
+                level = HttpLoggingInterceptor.Level.HEADERS
             })
             .build()
     }
@@ -25,7 +25,6 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(baseUrl)
@@ -40,6 +39,6 @@ class NetworkModule {
     }
 
     companion object {
-        const val baseUrl = "https://api.edamam.com/api/recipes/"
+        private const val baseUrl = "https://api.edamam.com/api/recipes/"
     }
 }

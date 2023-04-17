@@ -11,8 +11,8 @@ import dagger.Module
 interface RepositoryModule {
 
     @Binds
-    fun bindRecipeRep(impl: RecipeRepositoryImpl): RecipeRepository
+    fun bindRecipeRepository(impl: RecipeRepositoryImpl): RecipeRepository
 
     @Binds
-    fun bindOwnRecipeRep(impl: OwnRecipeRepositoryImpl): OwnRecipeRepository
+    fun bindOwnRecipeRepository(impl: OwnRecipeRepositoryImpl): OwnRecipeRepository
 }
