@@ -2,6 +2,7 @@ package com.example.cookbook.data.mappers
 
 import com.example.cookbook.data.database.OwnRecipeEntity
 import com.example.cookbook.domain.models.RecipeData
+import com.example.cookbook.utils.Constants.Companion.EMPTY_STRING
 import javax.inject.Inject
 
 class OwnEntityToDataRecipeMapper @Inject constructor() {
@@ -10,7 +11,7 @@ class OwnEntityToDataRecipeMapper @Inject constructor() {
         RecipeData(
             id = id,
             label = title,
-            image = "",
+            image = EMPTY_STRING,
             url = description,
             mealType = mealType,
             ingredientLines = listOf(ingredients),
