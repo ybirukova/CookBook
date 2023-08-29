@@ -1,14 +1,13 @@
 package com.example.cookbook.data.repositories_impl
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.example.cookbook.data.database_sources.OwnRecipesDatabaseSource
 import com.example.cookbook.data.mappers.DataToOwnEntityRecipeMapper
 import com.example.cookbook.data.mappers.OwnEntityToDataRecipeMapper
 import com.example.cookbook.domain.models.RecipeData
 import com.example.cookbook.domain.repository.OwnRecipeRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import io.reactivex.Completable
+import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class OwnRecipeRepositoryImpl @Inject constructor(
@@ -17,30 +16,42 @@ class OwnRecipeRepositoryImpl @Inject constructor(
     private val database: OwnRecipesDatabaseSource
 ) : OwnRecipeRepository {
 
-    override suspend fun getRecipeList(): List<RecipeData> {
-        return withContext(Dispatchers.IO) {
-            database.getAllRecipes().map { entityToDataMapper(it) }
+    override fun getRecipeList(): Single<List<RecipeData>> {
+        return database.getAllRecipes().map {
+            val list = it.map { entity ->
+                entityToDataMapper(entity)
+            }
+            list
         }
     }
 
-    override suspend fun getRecipeListSync(): LiveData<List<RecipeData>> {
-        return Transformations.map(database.getAllRecipesSync()) {
+    override fun getRecipeListSync(): Observable<List<RecipeData>> {
+        val list = database.getAllRecipesSync().map {
             it.map { entity ->
                 entityToDataMapper(entity)
             }
         }
+        return list
     }
 
-    override suspend fun addNewRecipe(recipe: RecipeData) {
-        return withContext(Dispatchers.IO) {
-            val entity = dataToEntityMapper(recipe)
-            database.insertAllRecipes(entity)
-        }
+    override fun addNewRecipe(recipe: RecipeData): Single<Unit> {
+        return Single.just(recipe)
+            .map { dataToEntityMapper(it) }
+            .flatMapCompletable { entity ->
+                Completable.fromAction {
+                    database.insertAllRecipes(entity)
+                }
+            }
+            .toSingleDefault(Unit)
     }
 
-    override suspend fun deleteRecipe(id: Int) {
-        return withContext(Dispatchers.IO) {
-            database.deleteRecipe(id)
-        }
+    override fun deleteRecipe(id: Int): Single<Unit> {
+        return Single.just(id)
+            .flatMapCompletable { id ->
+                Completable.fromAction {
+                    database.deleteRecipe(id)
+                }
+            }
+            .toSingleDefault(Unit)
     }
 }

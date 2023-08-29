@@ -1,15 +1,16 @@
 package com.example.cookbook.domain.repository
 
-import androidx.lifecycle.LiveData
 import com.example.cookbook.domain.models.RecipeData
+import io.reactivex.Observable
+import io.reactivex.Single
 
 interface OwnRecipeRepository {
 
-    suspend fun getRecipeList(): List<RecipeData>
+    fun getRecipeList(): Single<List<RecipeData>>
 
-    suspend fun getRecipeListSync(): LiveData<List<RecipeData>>
+    fun getRecipeListSync(): Observable<List<RecipeData>>
 
-    suspend fun addNewRecipe(recipe: RecipeData)
+    fun addNewRecipe(recipe: RecipeData): Single<Unit>
 
-    suspend fun deleteRecipe(id: Int)
+    fun deleteRecipe(id: Int): Single<Unit>
 }

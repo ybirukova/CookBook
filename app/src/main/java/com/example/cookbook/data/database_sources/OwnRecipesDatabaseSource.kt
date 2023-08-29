@@ -1,19 +1,20 @@
 package com.example.cookbook.data.database_sources
 
-import androidx.lifecycle.LiveData
 import com.example.cookbook.data.database.OwnRecipeDao
 import com.example.cookbook.data.database.OwnRecipeEntity
+import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class OwnRecipesDatabaseSource @Inject constructor(
     private val ownRecipeDao: OwnRecipeDao,
 ) {
 
-    fun getAllRecipes(): List<OwnRecipeEntity> {
+    fun getAllRecipes(): Single<List<OwnRecipeEntity>> {
         return ownRecipeDao.getAllRecipes()
     }
 
-    fun getAllRecipesSync(): LiveData<List<OwnRecipeEntity>> {
+    fun getAllRecipesSync(): Observable<List<OwnRecipeEntity>> {
         return ownRecipeDao.getAllRecipesSync()
     }
 
