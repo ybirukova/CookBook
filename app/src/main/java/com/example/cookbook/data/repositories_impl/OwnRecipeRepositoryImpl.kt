@@ -17,24 +17,22 @@ class OwnRecipeRepositoryImpl @Inject constructor(
 ) : OwnRecipeRepository {
 
     override fun getRecipeList(): Single<List<RecipeData>> {
-        return database.getAllRecipes().map {
-            val list = it.map { entity ->
+        return database.getAllRecipes().map { entityList ->
+            entityList.map { entity ->
                 entityToDataMapper(entity)
             }
-            list
         }
     }
 
     override fun getRecipeListSync(): Observable<List<RecipeData>> {
-        val list = database.getAllRecipesSync().map {
+        return database.getAllRecipesSync().map {
             it.map { entity ->
                 entityToDataMapper(entity)
             }
         }
-        return list
     }
 
-    override fun addNewRecipe(recipe: RecipeData): Single<Unit> {
+    override fun addNewRecipe(recipe: RecipeData): Completable {
         return Single.just(recipe)
             .map { dataToEntityMapper(it) }
             .flatMapCompletable { entity ->
@@ -42,16 +40,14 @@ class OwnRecipeRepositoryImpl @Inject constructor(
                     database.insertAllRecipes(entity)
                 }
             }
-            .toSingleDefault(Unit)
     }
 
-    override fun deleteRecipe(id: Int): Single<Unit> {
+    override fun deleteRecipe(id: Int): Completable {
         return Single.just(id)
             .flatMapCompletable { id ->
                 Completable.fromAction {
                     database.deleteRecipe(id)
                 }
             }
-            .toSingleDefault(Unit)
     }
 }

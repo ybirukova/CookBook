@@ -1,6 +1,7 @@
 package com.example.cookbook.domain.repository
 
 import com.example.cookbook.domain.models.RecipeData
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -10,7 +11,7 @@ interface OwnRecipeRepository {
 
     fun getRecipeListSync(): Observable<List<RecipeData>>
 
-    fun addNewRecipe(recipe: RecipeData): Single<Unit>
+    fun addNewRecipe(recipe: RecipeData): Completable
 
-    fun deleteRecipe(id: Int): Single<Unit>
+    fun deleteRecipe(id: Int): Completable
 }
