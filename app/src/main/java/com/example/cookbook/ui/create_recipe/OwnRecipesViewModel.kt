@@ -1,20 +1,23 @@
 package com.example.cookbook.ui.create_recipe
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.cookbook.data.scheduler_provider.SchedulerProvider
 import com.example.cookbook.domain.models.RecipeData
 import com.example.cookbook.domain.repository.OwnRecipeRepository
 import com.example.cookbook.utils.Constants.Companion.EMPTY_STRING
 import com.example.cookbook.utils.Constants.Companion.ZERO
 import com.example.cookbook.utils.addToComposite
+import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
+import javax.inject.Named
 
 class OwnRecipesViewModel @Inject constructor(
     private val recipeRepository: OwnRecipeRepository,
-    private val schedulerProvider: SchedulerProvider
+    @Named("SchedulerIO") private val schedulerIo: Scheduler,
+    @Named("SchedulerMainThread") private val schedulerMainThread: Scheduler,
 ) :
     ViewModel() {
 
@@ -38,22 +41,24 @@ class OwnRecipesViewModel @Inject constructor(
 
     private fun observeRecipes() {
         recipeRepository.getRecipeListSync()
-            .subscribeOn(schedulerProvider.io())
-            .observeOn(schedulerProvider.mainThread())
+            .subscribeOn(schedulerIo)
+            .observeOn(schedulerMainThread)
             .doOnSubscribe { _isLoading.value = true }
-            .subscribe({
-                _ownRecipes.value = it
-                _isLoading.value = ownRecipes.value?.isEmpty() == true
-            }, {
-                it.localizedMessage
-            })
+            .subscribe(
+                {
+                    _ownRecipes.value = it
+                    _isLoading.value = ownRecipes.value?.isEmpty() == true
+                }, {
+                    Log.d("ERROR_LOG", it.localizedMessage ?: "unknown error")
+                }
+            )
             .addToComposite(composite)
     }
 
     fun deleteRecipe(id: Int) {
         recipeRepository.deleteRecipe(id)
-            .subscribeOn(schedulerProvider.io())
-            .observeOn(schedulerProvider.mainThread())
+            .subscribeOn(schedulerIo)
+            .observeOn(schedulerMainThread)
             .subscribe()
             .addToComposite(composite)
 
@@ -77,8 +82,8 @@ class OwnRecipesViewModel @Inject constructor(
         recipeRepository.addNewRecipe(
             RecipeData(id, label, image, url, mealType, ingredientLines, totalTime, isFavorite)
         )
-            .subscribeOn(schedulerProvider.io())
-            .observeOn(schedulerProvider.mainThread())
+            .subscribeOn(schedulerIo)
+            .observeOn(schedulerMainThread)
             .subscribe()
             .addToComposite(composite)
     }
