@@ -33,21 +33,14 @@ class OwnRecipeRepositoryImpl @Inject constructor(
     }
 
     override fun addNewRecipe(recipe: RecipeData): Completable {
-        return Single.just(recipe)
-            .map { dataToEntityMapper(it) }
-            .flatMapCompletable { entity ->
-                Completable.fromAction {
-                    database.insertAllRecipes(entity)
-                }
-            }
+        return Completable.fromAction {
+            database.insertAllRecipes(dataToEntityMapper(recipe))
+        }
     }
 
     override fun deleteRecipe(id: Int): Completable {
-        return Single.just(id)
-            .flatMapCompletable { id ->
-                Completable.fromAction {
-                    database.deleteRecipe(id)
-                }
-            }
+        return Completable.fromAction {
+            database.deleteRecipe(id)
+        }
     }
 }
