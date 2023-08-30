@@ -25,9 +25,9 @@ class OwnRecipesViewModel @Inject constructor(
     val ownRecipes: LiveData<List<RecipeData>>
         get() = _ownRecipes
 
-    private val _isLoading = MutableLiveData(true)
-    val isLoading: LiveData<Boolean>
-        get() = _isLoading
+    private val _isShowingMessage = MutableLiveData(true)
+    val isShowingMessage: LiveData<Boolean>
+        get() = _isShowingMessage
 
     private val _isSuccessful = MutableLiveData(false)
     val isSuccessful: LiveData<Boolean>
@@ -43,13 +43,16 @@ class OwnRecipesViewModel @Inject constructor(
         recipeRepository.getRecipeListSync()
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
-            .doOnSubscribe { _isLoading.value = true }
+            .doOnSubscribe { _isShowingMessage.value = true }
             .subscribe(
                 {
                     _ownRecipes.value = it
-                    _isLoading.value = ownRecipes.value?.isEmpty() == true
+                    _isShowingMessage.value = ownRecipes.value?.isEmpty() == true
                 }, {
-                    Log.d("ERROR_LOG", it.localizedMessage ?: "unknown error")
+                    Log.d(
+                        "ERROR_LOG",
+                        it.localizedMessage ?: "unknown error in OwnRecipesViewModel"
+                    )
                 }
             )
             .addToComposite(composite)

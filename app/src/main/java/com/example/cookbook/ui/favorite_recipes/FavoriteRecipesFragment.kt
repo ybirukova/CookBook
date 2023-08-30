@@ -74,7 +74,7 @@ class FavoriteRecipesFragment : BaseFragment() {
     }
 
     private fun observeFavoriteRecipes() {
-        viewModel.favoriteRecipes?.observe(viewLifecycleOwner) {
+        viewModel.favoriteRecipes.observe(viewLifecycleOwner) {
             it?.let { list ->
                 favoriteRecipesAdapter.updateRecipes(list)
                 binding.placeholderText.isVisible = list.isEmpty()
@@ -83,7 +83,7 @@ class FavoriteRecipesFragment : BaseFragment() {
     }
 
     private fun observeLoadingStatus() {
-        viewModel.isLoading.observe(viewLifecycleOwner) {
+        viewModel.isShowingMessage.observe(viewLifecycleOwner) {
             binding.favoritesRecipesRv.isVisible = !it
         }
     }

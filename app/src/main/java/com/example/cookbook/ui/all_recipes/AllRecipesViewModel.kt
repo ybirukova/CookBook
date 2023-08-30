@@ -1,22 +1,32 @@
 package com.example.cookbook.ui.all_recipes
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.cookbook.domain.models.RecipeData
 import com.example.cookbook.domain.repository.RecipeRepository
-import kotlinx.coroutines.launch
+import com.example.cookbook.utils.addToComposite
+import io.reactivex.Scheduler
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
+import javax.inject.Named
 
-class AllRecipesViewModel @Inject constructor(private val recipeRepository: RecipeRepository) :
-    ViewModel() {
+class AllRecipesViewModel @Inject constructor(
+    private val recipeRepository: RecipeRepository,
+    @Named("SchedulerIO") private val schedulerIo: Scheduler,
+    @Named("SchedulerMainThread") private val schedulerMainThread: Scheduler,
+) : ViewModel() {
 
-    var allRecipes: LiveData<List<RecipeData>>? = null
+    private val _allRecipes = MutableLiveData<List<RecipeData>>(listOf())
+    val allRecipes: LiveData<List<RecipeData>>
+        get() = _allRecipes
 
     private val _isLoading = MutableLiveData(true)
     val isLoading: LiveData<Boolean>
         get() = _isLoading
+
+    private val composite = CompositeDisposable()
 
     init {
         refreshRecipes()
@@ -24,22 +34,42 @@ class AllRecipesViewModel @Inject constructor(private val recipeRepository: Reci
     }
 
     private fun refreshRecipes() {
-        viewModelScope.launch {
-            recipeRepository.refreshDatabaseWithRandomRecipes()
-        }
+        recipeRepository.refreshDatabaseWithRandomRecipes()
+            .subscribeOn(schedulerIo)
+            .observeOn(schedulerMainThread)
+            .subscribe()
+            .addToComposite(composite)
     }
 
     private fun observeRecipes() {
-        _isLoading.value = true
-        viewModelScope.launch {
-            allRecipes = recipeRepository.getRecipeListSync()
-            _isLoading.value = false
-        }
+        recipeRepository.getRecipeListSync()
+            .subscribeOn(schedulerIo)
+            .observeOn(schedulerMainThread)
+            .doOnSubscribe { _isLoading.value = true }
+            .subscribe(
+                {
+                    _allRecipes.value = it
+                    _isLoading.value = allRecipes.value?.isEmpty() == true
+                }, {
+                    Log.d(
+                        "ERROR_LOG",
+                        it.localizedMessage ?: "unknown error in AllRecipesViewModel"
+                    )
+                }
+            )
+            .addToComposite(composite)
     }
 
     fun updateIsFavorite(recipe: RecipeData) {
-        viewModelScope.launch {
-            recipeRepository.updateIsFavorite(recipe)
-        }
+        recipeRepository.updateIsFavorite(recipe)
+            .subscribeOn(schedulerIo)
+            .observeOn(schedulerMainThread)
+            .subscribe()
+            .addToComposite(composite)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        composite.clear()
     }
 }

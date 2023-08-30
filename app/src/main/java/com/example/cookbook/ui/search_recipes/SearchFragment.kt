@@ -102,7 +102,7 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun observeAllRecipes() {
-        viewModel.searchResultLiveData.observe(viewLifecycleOwner) {
+        viewModel.searchResult.observe(viewLifecycleOwner) {
             it?.let { list ->
                 searchAdapter.updateRecipes(list)
             }

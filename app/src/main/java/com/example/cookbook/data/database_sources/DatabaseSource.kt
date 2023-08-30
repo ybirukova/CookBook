@@ -1,19 +1,16 @@
 package com.example.cookbook.data.database_sources
 
-import androidx.lifecycle.LiveData
 import com.example.cookbook.data.database.RecipeDao
 import com.example.cookbook.data.database.RecipeEntity
+import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class DatabaseSource @Inject constructor(
     private val recipeDao: RecipeDao
 ) {
 
-    fun getAllRecipes(): List<RecipeEntity> {
-        return recipeDao.getAllRecipes()
-    }
-
-    fun getAllRecipesSync(): LiveData<List<RecipeEntity>> {
+    fun getAllRecipesSync(): Observable<List<RecipeEntity>> {
         return recipeDao.getAllRecipesSync()
     }
 
@@ -21,11 +18,11 @@ class DatabaseSource @Inject constructor(
         recipeDao.insertAllRecipes(*recipes)
     }
 
-    fun getFavoriteRecipes(isFavorite: Boolean): List<RecipeEntity> {
+    fun getFavoriteRecipes(isFavorite: Boolean): Single<List<RecipeEntity>> {
         return recipeDao.getFavoriteRecipes(isFavorite)
     }
 
-    fun getFavoriteRecipesSync(isFavorite: Boolean): LiveData<List<RecipeEntity>> {
+    fun getFavoriteRecipesSync(isFavorite: Boolean): Observable<List<RecipeEntity>> {
         return recipeDao.getFavoriteRecipesSync(isFavorite)
     }
 
