@@ -84,7 +84,6 @@ class FavoriteRecipesFragment : BaseFragment() {
 
     private fun observeLoadingStatus() {
         viewModel.isLoading.observe(viewLifecycleOwner) {
-            binding.progressBar.isVisible = it
             binding.favoritesRecipesRv.isVisible = !it
         }
     }
