@@ -1,20 +1,29 @@
 package com.example.cookbook.ui.create_recipe
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.cookbook.domain.models.RecipeData
 import com.example.cookbook.domain.repository.OwnRecipeRepository
 import com.example.cookbook.utils.Constants.Companion.EMPTY_STRING
 import com.example.cookbook.utils.Constants.Companion.ZERO
-import kotlinx.coroutines.launch
+import com.example.cookbook.utils.addToComposite
+import io.reactivex.Scheduler
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
+import javax.inject.Named
 
-class OwnRecipesViewModel @Inject constructor(private val recipeRepository: OwnRecipeRepository) :
+class OwnRecipesViewModel @Inject constructor(
+    private val recipeRepository: OwnRecipeRepository,
+    @Named("SchedulerIO") private val schedulerIo: Scheduler,
+    @Named("SchedulerMainThread") private val schedulerMainThread: Scheduler,
+) :
     ViewModel() {
 
-    var ownRecipes: LiveData<List<RecipeData>>? = null
+    private val _ownRecipes = MutableLiveData<List<RecipeData>>(listOf())
+    val ownRecipes: LiveData<List<RecipeData>>
+        get() = _ownRecipes
 
     private val _isLoading = MutableLiveData(true)
     val isLoading: LiveData<Boolean>
@@ -24,22 +33,36 @@ class OwnRecipesViewModel @Inject constructor(private val recipeRepository: OwnR
     val isSuccessful: LiveData<Boolean>
         get() = _isSuccessful
 
+    private val composite = CompositeDisposable()
+
     init {
         observeRecipes()
     }
 
     private fun observeRecipes() {
-        _isLoading.value = true
-        viewModelScope.launch {
-            ownRecipes = recipeRepository.getRecipeListSync()
-            _isLoading.value = false
-        }
+        recipeRepository.getRecipeListSync()
+            .subscribeOn(schedulerIo)
+            .observeOn(schedulerMainThread)
+            .doOnSubscribe { _isLoading.value = true }
+            .subscribe(
+                {
+                    _ownRecipes.value = it
+                    _isLoading.value = ownRecipes.value?.isEmpty() == true
+                }, {
+                    Log.d("ERROR_LOG", it.localizedMessage ?: "unknown error")
+                }
+            )
+            .addToComposite(composite)
     }
 
     fun deleteRecipe(id: Int) {
-        viewModelScope.launch {
-            recipeRepository.deleteRecipe(id)
-        }
+        recipeRepository.deleteRecipe(id)
+            .subscribeOn(schedulerIo)
+            .observeOn(schedulerMainThread)
+            .subscribe()
+            .addToComposite(composite)
+
+        observeRecipes()
     }
 
     fun setIsSuccessful(title: String, ingredients: String, description: String) {
@@ -56,10 +79,17 @@ class OwnRecipesViewModel @Inject constructor(private val recipeRepository: OwnR
         totalTime: String = EMPTY_STRING,
         isFavorite: Boolean = false
     ) {
-        viewModelScope.launch {
-            recipeRepository.addNewRecipe(
-                RecipeData(id, label, image, url, mealType, ingredientLines, totalTime, isFavorite)
-            )
-        }
+        recipeRepository.addNewRecipe(
+            RecipeData(id, label, image, url, mealType, ingredientLines, totalTime, isFavorite)
+        )
+            .subscribeOn(schedulerIo)
+            .observeOn(schedulerMainThread)
+            .subscribe()
+            .addToComposite(composite)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        composite.clear()
     }
 }

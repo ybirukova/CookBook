@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.cookbook.R
 import com.example.cookbook.RecipeApp
@@ -96,6 +97,10 @@ class FullRecipeFragment : Fragment() {
             val uri = Uri.parse(recipe.url)
             val openLinkIntent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(openLinkIntent)
+        }
+
+        binding.ivBack.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
