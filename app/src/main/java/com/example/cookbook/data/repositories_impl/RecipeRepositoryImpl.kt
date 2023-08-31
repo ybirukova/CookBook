@@ -10,6 +10,7 @@ import com.example.cookbook.domain.repository.RecipeRepository
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import java.lang.Exception
 import javax.inject.Inject
 
 class RecipeRepositoryImpl @Inject constructor(
@@ -21,15 +22,16 @@ class RecipeRepositoryImpl @Inject constructor(
 ) : RecipeRepository {
 
     override fun refreshDatabaseWithRandomRecipes(): Completable {
-        return service.getRandomRecipeList().flatMapCompletable {
-            val list = it.hits?.map { response ->
-                responseToDataMapper(response)
-            } ?: throw Exception(ERROR_MESSAGE)
-            val listOfEntities = list.map { recipe ->
-                dataToEntityMapper(recipe)
+        return Completable.fromAction {
+            val list = service.getRandomRecipeList().map { listResponse ->
+                listResponse.hits?.map { response ->
+                    responseToDataMapper(response)
+                }?.map { recipe ->
+                    dataToEntityMapper(recipe)
+                } ?: throw Exception(ERROR_MESSAGE)
+            }.subscribe { list ->
+                database.insertAllRecipes(list)
             }
-            database.insertAllRecipes(*listOfEntities.toTypedArray())
-            Completable.complete()
         }
     }
 
@@ -55,17 +57,9 @@ class RecipeRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getFavoriteRecipeList(): Single<List<RecipeData>> {
-        return database.getFavoriteRecipes(true).map { listEntity ->
-            listEntity.map { entity ->
-                entityToDataMapper(entity)
-            }
-        }
-    }
-
     override fun addFavoriteRecipe(recipe: RecipeData): Completable {
         return Completable.fromAction {
-            database.insertAllRecipes(dataToEntityMapper(recipe))
+            database.insertAllRecipes(listOf(dataToEntityMapper(recipe)))
         }
     }
 

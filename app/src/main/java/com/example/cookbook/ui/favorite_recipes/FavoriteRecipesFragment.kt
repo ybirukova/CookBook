@@ -56,7 +56,7 @@ class FavoriteRecipesFragment : BaseFragment() {
 
         setupRecyclerView()
         observeFavoriteRecipes()
-        observeLoadingStatus()
+        observeScreenState()
         search()
     }
 
@@ -82,9 +82,12 @@ class FavoriteRecipesFragment : BaseFragment() {
         }
     }
 
-    private fun observeLoadingStatus() {
-        viewModel.isShowingMessage.observe(viewLifecycleOwner) {
-            binding.favoritesRecipesRv.isVisible = !it
+    private fun observeScreenState() {
+        viewModel.isLoadingState.observe(viewLifecycleOwner) {
+            with(binding) {
+                favoritesRecipesRv.isVisible = !it
+                progressBar.isVisible = it
+            }
         }
     }
 

@@ -22,9 +22,9 @@ class AllRecipesViewModel @Inject constructor(
     val allRecipes: LiveData<List<RecipeData>>
         get() = _allRecipes
 
-    private val _isLoading = MutableLiveData(true)
-    val isLoading: LiveData<Boolean>
-        get() = _isLoading
+    private val _isLoadingState = MutableLiveData(true)
+    val isLoadingState: LiveData<Boolean>
+        get() = _isLoadingState
 
     private val composite = CompositeDisposable()
 
@@ -45,11 +45,11 @@ class AllRecipesViewModel @Inject constructor(
         recipeRepository.getRecipeListSync()
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
-            .doOnSubscribe { _isLoading.value = true }
+            .doOnSubscribe { _isLoadingState.value = true }
             .subscribe(
                 {
                     _allRecipes.value = it
-                    _isLoading.value = allRecipes.value?.isEmpty() == true
+                    _isLoadingState.value = allRecipes.value?.isEmpty()
                 }, {
                     Log.d(
                         "ERROR_LOG",

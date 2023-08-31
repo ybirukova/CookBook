@@ -15,8 +15,6 @@ interface RecipeRepository {
 
     fun updateIsFavorite(recipe: RecipeData): Completable
 
-    fun getFavoriteRecipeList(): Single<List<RecipeData>>
-
     fun addFavoriteRecipe(recipe: RecipeData): Completable
 
     fun getFavoriteRecipeListSync(): Observable<List<RecipeData>>

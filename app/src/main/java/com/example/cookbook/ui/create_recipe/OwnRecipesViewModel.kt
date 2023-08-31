@@ -47,7 +47,7 @@ class OwnRecipesViewModel @Inject constructor(
             .subscribe(
                 {
                     _ownRecipes.value = it
-                    _isShowingMessage.value = ownRecipes.value?.isEmpty() == true
+                    _isShowingMessage.value = ownRecipes.value?.isEmpty()
                 }, {
                     Log.d(
                         "ERROR_LOG",

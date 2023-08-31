@@ -3,7 +3,6 @@ package com.example.cookbook.data.database_sources
 import com.example.cookbook.data.database.RecipeDao
 import com.example.cookbook.data.database.RecipeEntity
 import io.reactivex.Observable
-import io.reactivex.Single
 import javax.inject.Inject
 
 class DatabaseSource @Inject constructor(
@@ -14,12 +13,8 @@ class DatabaseSource @Inject constructor(
         return recipeDao.getAllRecipesSync()
     }
 
-    fun insertAllRecipes(vararg recipes: RecipeEntity) {
-        recipeDao.insertAllRecipes(*recipes)
-    }
-
-    fun getFavoriteRecipes(isFavorite: Boolean): Single<List<RecipeEntity>> {
-        return recipeDao.getFavoriteRecipes(isFavorite)
+    fun insertAllRecipes(recipes: List<RecipeEntity>) {
+        return recipeDao.insertAllRecipes(recipes)
     }
 
     fun getFavoriteRecipesSync(isFavorite: Boolean): Observable<List<RecipeEntity>> {

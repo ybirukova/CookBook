@@ -23,9 +23,9 @@ class SearchViewModel @Inject constructor(
     val searchResult: LiveData<List<RecipeData>>
         get() = _searchResult
 
-    private val _isLoading = MutableLiveData(true)
-    val isLoading: LiveData<Boolean>
-        get() = _isLoading
+    private val _isLoadingState = MutableLiveData(false)
+    val isLoadingState: LiveData<Boolean>
+        get() = _isLoadingState
 
     private val composite = CompositeDisposable()
 
@@ -33,11 +33,11 @@ class SearchViewModel @Inject constructor(
         recipeRepository.getRecipeListBySearching(q)
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
-            .doOnSubscribe { _isLoading.value = true }
+            .doOnSubscribe { _isLoadingState.value = true }
             .subscribe(
                 {
                     _searchResult.value = it
-                    _isLoading.value = searchResult.value?.isEmpty() == true
+                    _isLoadingState.value = searchResult.value?.isEmpty()
                 }, {
                     Log.d(
                         "ERROR_LOG",

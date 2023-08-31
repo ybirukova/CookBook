@@ -23,9 +23,9 @@ class FavouriteRecipesViewModel @Inject constructor(
     val favoriteRecipes: LiveData<List<RecipeData>>
         get() = _favoriteRecipes
 
-    private val _isShowingMessage = MutableLiveData(true)
-    val isShowingMessage: LiveData<Boolean>
-        get() = _isShowingMessage
+    private val _isLoadingState = MutableLiveData(false)
+    val isLoadingState: LiveData<Boolean>
+        get() = _isLoadingState
 
     private val composite = CompositeDisposable()
 
@@ -37,11 +37,11 @@ class FavouriteRecipesViewModel @Inject constructor(
         recipeRepository.getFavoriteRecipeListSync()
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
-            .doOnSubscribe { _isShowingMessage.value = true }
+            .doOnSubscribe { _isLoadingState.value = true }
             .subscribe(
                 {
                     _favoriteRecipes.value = it
-                    _isShowingMessage.value = favoriteRecipes.value?.isEmpty() == true
+                    _isLoadingState.value = favoriteRecipes.value?.isEmpty()
                 }, {
                     Log.d(
                         "ERROR_LOG",
