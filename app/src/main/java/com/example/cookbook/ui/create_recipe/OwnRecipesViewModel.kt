@@ -92,10 +92,21 @@ class OwnRecipesViewModel @Inject constructor(
         mealType: String = EMPTY_STRING,
         ingredientLines: List<String>,
         totalTime: String = EMPTY_STRING,
-        isFavorite: Boolean = false
+        isFavorite: Boolean = true,
+        isOwnRecipe: Boolean = true
     ) {
         recipeRepository.addNewRecipe(
-            RecipeData(id, label, image, url, mealType, ingredientLines, totalTime, isFavorite)
+            RecipeData(
+                id,
+                label,
+                image,
+                url,
+                mealType,
+                ingredientLines,
+                totalTime,
+                isFavorite,
+                isOwnRecipe
+            )
         )
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)

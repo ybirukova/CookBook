@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.cookbook.domain.models.RecipeData
 import com.example.cookbook.domain.repository.RecipeRepository
 import com.example.cookbook.utils.addToComposite
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -30,7 +31,14 @@ class SearchViewModel @Inject constructor(
     private val composite = CompositeDisposable()
 
     fun searchRecipes(q: String) {
-        recipeRepository.getRecipeListBySearching(q)
+        val observable1: Observable<List<RecipeData>> =
+            recipeRepository.getOwnRecipeListBySearching(q).toObservable()
+        val observable2: Observable<List<RecipeData>> =
+            recipeRepository.getRecipeListBySearching(q).toObservable()
+
+        Observable.zip(observable1, observable2) { o1, o2 ->
+            o1 + o2
+        }
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
             .doOnSubscribe { _isLoadingState.value = true }

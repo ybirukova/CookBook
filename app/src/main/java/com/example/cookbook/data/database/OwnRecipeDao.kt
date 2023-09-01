@@ -21,4 +21,7 @@ interface OwnRecipeDao {
 
     @Query("DELETE FROM own_recipe_table WHERE id = :id")
     fun deleteRecipe(id: Int)
+
+    @Query("SELECT * FROM own_recipe_table WHERE title LIKE '%' || :title || '%'")
+    fun getRecipeListBySearching(title: String): Single<List<OwnRecipeEntity>>
 }
