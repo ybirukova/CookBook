@@ -10,7 +10,6 @@ import com.example.cookbook.domain.repository.RecipeRepository
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import java.lang.Exception
 import javax.inject.Inject
 
 class RecipeRepositoryImpl @Inject constructor(
@@ -29,9 +28,7 @@ class RecipeRepositoryImpl @Inject constructor(
                 }?.map { recipe ->
                     dataToEntityMapper(recipe)
                 } ?: throw Exception(ERROR_MESSAGE)
-            }.subscribe { list ->
-                database.insertAllRecipes(list)
-            }
+            }.map { list -> database.insertAllRecipes(list) }
         }
     }
 

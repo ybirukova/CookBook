@@ -41,7 +41,8 @@ class SearchViewModel @Inject constructor(
                 }, {
                     Log.d(
                         "ERROR_LOG",
-                        it.localizedMessage ?: "unknown error in SearchViewModel"
+                        it.localizedMessage
+                            ?: "unknown error in SearchViewModel fun searchRecipes()"
                     )
                 }
             )
@@ -52,7 +53,15 @@ class SearchViewModel @Inject constructor(
         recipeRepository.addFavoriteRecipe(recipe)
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
-            .subscribe()
+            .subscribe(
+                { }, {
+                    Log.d(
+                        "ERROR_LOG",
+                        it.localizedMessage
+                            ?: "unknown error in SearchViewModel fun addFavoriteRecipe()"
+                    )
+                }
+            )
             .addToComposite(composite)
     }
 
@@ -60,7 +69,15 @@ class SearchViewModel @Inject constructor(
         recipeRepository.updateIsFavorite(recipe)
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
-            .subscribe()
+            .subscribe(
+                { }, {
+                    Log.d(
+                        "ERROR_LOG",
+                        it.localizedMessage
+                            ?: "unknown error in SearchViewModel fun updateIsFavorite()"
+                    )
+                }
+            )
             .addToComposite(composite)
     }
 

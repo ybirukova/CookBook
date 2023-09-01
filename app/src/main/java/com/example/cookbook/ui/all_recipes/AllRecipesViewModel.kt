@@ -37,7 +37,15 @@ class AllRecipesViewModel @Inject constructor(
         recipeRepository.refreshDatabaseWithRandomRecipes()
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
-            .subscribe()
+            .subscribe(
+                { }, {
+                    Log.d(
+                        "ERROR_LOG",
+                        it.localizedMessage
+                            ?: "unknown error in AllRecipesViewModel fun refreshRecipes()"
+                    )
+                }
+            )
             .addToComposite(composite)
     }
 
@@ -53,7 +61,8 @@ class AllRecipesViewModel @Inject constructor(
                 }, {
                     Log.d(
                         "ERROR_LOG",
-                        it.localizedMessage ?: "unknown error in AllRecipesViewModel"
+                        it.localizedMessage
+                            ?: "unknown error in AllRecipesViewModel fun observeRecipes()"
                     )
                 }
             )
@@ -64,7 +73,15 @@ class AllRecipesViewModel @Inject constructor(
         recipeRepository.updateIsFavorite(recipe)
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
-            .subscribe()
+            .subscribe(
+                { }, {
+                    Log.d(
+                        "ERROR_LOG",
+                        it.localizedMessage
+                            ?: "unknown error in AllRecipesViewModel fun updateIsFavorite()"
+                    )
+                }
+            )
             .addToComposite(composite)
     }
 

@@ -56,7 +56,15 @@ class FavouriteRecipesViewModel @Inject constructor(
         recipeRepository.updateIsFavorite(recipe)
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
-            .subscribe()
+            .subscribe(
+                { }, {
+                    Log.d(
+                        "ERROR_LOG",
+                        it.localizedMessage
+                            ?: "unknown error in FavouriteRecipesViewModel fun updateIsFavorite()"
+                    )
+                }
+            )
             .addToComposite(composite)
     }
 

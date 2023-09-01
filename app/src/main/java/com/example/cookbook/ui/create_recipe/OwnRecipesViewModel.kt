@@ -51,7 +51,8 @@ class OwnRecipesViewModel @Inject constructor(
                 }, {
                     Log.d(
                         "ERROR_LOG",
-                        it.localizedMessage ?: "unknown error in OwnRecipesViewModel"
+                        it.localizedMessage
+                            ?: "unknown error in OwnRecipesViewModel fun observeRecipes()"
                     )
                 }
             )
@@ -62,7 +63,15 @@ class OwnRecipesViewModel @Inject constructor(
         recipeRepository.deleteRecipe(id)
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
-            .subscribe()
+            .subscribe(
+                { }, {
+                    Log.d(
+                        "ERROR_LOG",
+                        it.localizedMessage
+                            ?: "unknown error in OwnRecipesViewModel fun deleteRecipe()"
+                    )
+                }
+            )
             .addToComposite(composite)
 
         observeRecipes()
@@ -87,7 +96,15 @@ class OwnRecipesViewModel @Inject constructor(
         )
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
-            .subscribe()
+            .subscribe(
+                { }, {
+                    Log.d(
+                        "ERROR_LOG",
+                        it.localizedMessage
+                            ?: "unknown error in OwnRecipesViewModel fun createAndSaveRecipeData()"
+                    )
+                }
+            )
             .addToComposite(composite)
     }
 
