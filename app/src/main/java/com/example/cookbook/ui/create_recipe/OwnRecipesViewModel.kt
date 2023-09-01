@@ -45,8 +45,8 @@ class OwnRecipesViewModel @Inject constructor(
             .observeOn(schedulerMainThread)
             .doOnSubscribe { _isShowingMessage.value = true }
             .subscribe(
-                {
-                    _ownRecipes.value = it
+                { recipes ->
+                    _ownRecipes.value = recipes
                     _isShowingMessage.value = ownRecipes.value?.isEmpty()
                     Log.d("SUCCESS_LOG", "fun observeRecipes() completed")
                 }, {

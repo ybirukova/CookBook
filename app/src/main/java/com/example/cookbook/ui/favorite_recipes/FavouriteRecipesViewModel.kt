@@ -39,8 +39,8 @@ class FavouriteRecipesViewModel @Inject constructor(
             .observeOn(schedulerMainThread)
             .doOnSubscribe { _isLoadingState.value = true }
             .subscribe(
-                {
-                    _favoriteRecipes.value = it
+                { recipes ->
+                    _favoriteRecipes.value = recipes
                     _isLoadingState.value = false
                     Log.d("SUCCESS_LOG", "fun observeFavouriteRecipes() completed")
                 }, {
