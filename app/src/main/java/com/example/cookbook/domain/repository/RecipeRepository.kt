@@ -13,6 +13,8 @@ interface RecipeRepository {
 
     fun getRecipeListBySearching(q: String): Single<List<RecipeData>>
 
+    fun getOwnRecipeListBySearching(title: String): Single<List<RecipeData>>
+
     fun updateIsFavorite(recipe: RecipeData): Completable
 
     fun addFavoriteRecipe(recipe: RecipeData): Completable

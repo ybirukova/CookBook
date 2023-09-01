@@ -25,4 +25,8 @@ class OwnRecipesDatabaseSource @Inject constructor(
     fun deleteRecipe(id: Int) {
         ownRecipeDao.deleteRecipe(id)
     }
+
+    fun getRecipeListBySearching(title: String): Single<List<OwnRecipeEntity>> {
+        return ownRecipeDao.getRecipeListBySearching(title)
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.cookbook.ui.recycler
 
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cookbook.R
@@ -16,14 +15,6 @@ class RecipeViewHolder(
 
     fun onBind(recipe: RecipeData) {
         with(binding) {
-            if (!recipe.url.startsWith("http")) {
-                cbLike.isVisible = false
-                buttonDelete.isVisible = true
-            } else {
-                cbLike.isVisible = true
-                buttonDelete.isVisible = false
-            }
-
             cbLike.isChecked = recipe.isFavorite
 
             tvTitleOfRecipe.text = recipe.label
@@ -38,16 +29,18 @@ class RecipeViewHolder(
                     .load(recipe.image)
                     .into(ivImageOfDish)
 
-            cbLike.setOnClickListener {
-                toggleIsFavourite?.invoke(recipe, cbLike.isChecked)
-            }
-
-            buttonDelete.setOnClickListener {
-                removeRecipe?.invoke(recipe.id)
+            if (recipe.isOwnRecipe) {
+                cbLike.setOnClickListener {
+                    removeRecipe?.invoke(recipe.id)
+                }
+            } else {
+                cbLike.setOnClickListener {
+                    toggleIsFavourite?.invoke(recipe, cbLike.isChecked)
+                }
             }
 
             itemView.setOnClickListener {
-                itemClickAction?.invoke(recipe)
+                itemClickAction.invoke(recipe)
             }
         }
     }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.cookbook.domain.models.RecipeData
 import com.example.cookbook.domain.repository.RecipeRepository
 import com.example.cookbook.utils.addToComposite
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -29,14 +30,21 @@ class SearchViewModel @Inject constructor(
 
     private val composite = CompositeDisposable()
 
-    fun searchRecipes(q: String) {
-        recipeRepository.getRecipeListBySearching(q)
+    fun searchRecipes(query: String) {
+        val localRecipeData: Observable<List<RecipeData>> =
+            recipeRepository.getOwnRecipeListBySearching(query).toObservable()
+        val remoteRecipeData: Observable<List<RecipeData>> =
+            recipeRepository.getRecipeListBySearching(query).toObservable()
+
+        Observable.zip(localRecipeData, remoteRecipeData) { localData, remoteData ->
+            localData + remoteData
+        }
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
             .doOnSubscribe { _isLoadingState.value = true }
             .subscribe(
-                {
-                    _searchResult.value = it
+                { recipes ->
+                    _searchResult.value = recipes
                     _isLoadingState.value = false
                     Log.d("SUCCESS_LOG", "fun searchRecipes() completed")
                 }, {

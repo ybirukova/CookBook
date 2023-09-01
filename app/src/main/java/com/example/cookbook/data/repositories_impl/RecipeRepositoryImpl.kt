@@ -1,8 +1,10 @@
 package com.example.cookbook.data.repositories_impl
 
 import com.example.cookbook.data.database_sources.DatabaseSource
+import com.example.cookbook.data.database_sources.OwnRecipesDatabaseSource
 import com.example.cookbook.data.mappers.DataToEntityRecipeMapper
 import com.example.cookbook.data.mappers.EntityToDataRecipeMapper
+import com.example.cookbook.data.mappers.OwnEntityToDataRecipeMapper
 import com.example.cookbook.data.mappers.ResponseToDataRecipeMapper
 import com.example.cookbook.data.network.RecipeService
 import com.example.cookbook.domain.models.RecipeData
@@ -16,8 +18,10 @@ class RecipeRepositoryImpl @Inject constructor(
     private val responseToDataMapper: ResponseToDataRecipeMapper,
     private val dataToEntityMapper: DataToEntityRecipeMapper,
     private val entityToDataMapper: EntityToDataRecipeMapper,
+    private val ownEntityToDataMapper: OwnEntityToDataRecipeMapper,
     private val service: RecipeService,
-    private val database: DatabaseSource
+    private val database: DatabaseSource,
+    private val databaseOwnRecipes: OwnRecipesDatabaseSource,
 ) : RecipeRepository {
 
     override fun refreshDatabaseWithRandomRecipes(): Completable {
@@ -44,6 +48,14 @@ class RecipeRepositoryImpl @Inject constructor(
         return service.getRecipeListBySearching(q).map { listResponse ->
             listResponse.hits?.map { itemResponse ->
                 responseToDataMapper(itemResponse)
+            }
+        }
+    }
+
+    override fun getOwnRecipeListBySearching(title: String): Single<List<RecipeData>> {
+        return databaseOwnRecipes.getRecipeListBySearching(title).map { listEntity ->
+            listEntity.map { entity ->
+                ownEntityToDataMapper(entity)
             }
         }
     }
