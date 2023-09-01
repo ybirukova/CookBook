@@ -48,6 +48,7 @@ class OwnRecipesViewModel @Inject constructor(
                 {
                     _ownRecipes.value = it
                     _isShowingMessage.value = ownRecipes.value?.isEmpty()
+                    Log.d("SUCCESS_LOG", "fun observeRecipes() completed")
                 }, {
                     Log.d(
                         "ERROR_LOG",
@@ -64,7 +65,9 @@ class OwnRecipesViewModel @Inject constructor(
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
             .subscribe(
-                { }, {
+                {
+                    Log.d("SUCCESS_LOG", "fun deleteRecipe() completed")
+                }, {
                     Log.d(
                         "ERROR_LOG",
                         it.localizedMessage
@@ -97,7 +100,9 @@ class OwnRecipesViewModel @Inject constructor(
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
             .subscribe(
-                { }, {
+                {
+                    Log.d("SUCCESS_LOG", "fun createAndSaveRecipeData() completed")
+                }, {
                     Log.d(
                         "ERROR_LOG",
                         it.localizedMessage

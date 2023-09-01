@@ -42,6 +42,7 @@ class FavouriteRecipesViewModel @Inject constructor(
                 {
                     _favoriteRecipes.value = it
                     _isLoadingState.value = favoriteRecipes.value?.isEmpty()
+                    Log.d("SUCCESS_LOG", "fun observeFavouriteRecipes() completed")
                 }, {
                     Log.d(
                         "ERROR_LOG",
@@ -57,7 +58,9 @@ class FavouriteRecipesViewModel @Inject constructor(
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
             .subscribe(
-                { }, {
+                {
+                    Log.d("SUCCESS_LOG", "fun updateIsFavorite() completed")
+                }, {
                     Log.d(
                         "ERROR_LOG",
                         it.localizedMessage

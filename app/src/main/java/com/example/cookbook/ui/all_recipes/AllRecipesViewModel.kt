@@ -38,7 +38,9 @@ class AllRecipesViewModel @Inject constructor(
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
             .subscribe(
-                { }, {
+                {
+                    Log.d("SUCCESS_LOG", "fun refreshRecipes() completed")
+                }, {
                     Log.d(
                         "ERROR_LOG",
                         it.localizedMessage
@@ -58,6 +60,7 @@ class AllRecipesViewModel @Inject constructor(
                 {
                     _allRecipes.value = it
                     _isLoadingState.value = allRecipes.value?.isEmpty()
+                    Log.d("SUCCESS_LOG", "fun observeRecipes() completed")
                 }, {
                     Log.d(
                         "ERROR_LOG",
@@ -74,7 +77,9 @@ class AllRecipesViewModel @Inject constructor(
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
             .subscribe(
-                { }, {
+                {
+                    Log.d("SUCCESS_LOG", "fun updateIsFavorite() completed")
+                }, {
                     Log.d(
                         "ERROR_LOG",
                         it.localizedMessage

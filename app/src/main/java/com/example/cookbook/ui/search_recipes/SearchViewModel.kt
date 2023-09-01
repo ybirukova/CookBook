@@ -38,6 +38,7 @@ class SearchViewModel @Inject constructor(
                 {
                     _searchResult.value = it
                     _isLoadingState.value = searchResult.value?.isEmpty()
+                    Log.d("SUCCESS_LOG", "fun searchRecipes() completed")
                 }, {
                     Log.d(
                         "ERROR_LOG",
@@ -54,7 +55,9 @@ class SearchViewModel @Inject constructor(
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
             .subscribe(
-                { }, {
+                {
+                    Log.d("SUCCESS_LOG", "fun addFavoriteRecipe() completed")
+                }, {
                     Log.d(
                         "ERROR_LOG",
                         it.localizedMessage
@@ -70,7 +73,9 @@ class SearchViewModel @Inject constructor(
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
             .subscribe(
-                { }, {
+                {
+                    Log.d("SUCCESS_LOG", "fun updateIsFavorite() completed")
+                }, {
                     Log.d(
                         "ERROR_LOG",
                         it.localizedMessage
