@@ -33,7 +33,7 @@
     <string name="new_recipe">Новый рецепт</string>
     <string name="save">Сохранить</string>
     <string-array name="spinner_array_meal_type">
-        <item></item>
+        <item>---Тип блюда---</item>
         <item>завтрак</item>
         <item>перекус</item>
         <item>обед</item>
