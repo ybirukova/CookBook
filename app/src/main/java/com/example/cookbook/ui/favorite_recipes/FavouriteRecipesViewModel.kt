@@ -41,7 +41,7 @@ class FavouriteRecipesViewModel @Inject constructor(
             .subscribe(
                 {
                     _favoriteRecipes.value = it
-                    _isLoadingState.value = favoriteRecipes.value?.isEmpty()
+                    _isLoadingState.value = false
                     Log.d("SUCCESS_LOG", "fun observeFavouriteRecipes() completed")
                 }, {
                     Log.d(

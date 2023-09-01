@@ -59,7 +59,7 @@ class AllRecipesViewModel @Inject constructor(
             .subscribe(
                 {
                     _allRecipes.value = it
-                    _isLoadingState.value = allRecipes.value?.isEmpty()
+                    _isLoadingState.value = false
                     Log.d("SUCCESS_LOG", "fun observeRecipes() completed")
                 }, {
                     Log.d(

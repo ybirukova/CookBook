@@ -37,7 +37,7 @@ class SearchViewModel @Inject constructor(
             .subscribe(
                 {
                     _searchResult.value = it
-                    _isLoadingState.value = searchResult.value?.isEmpty()
+                    _isLoadingState.value = false
                     Log.d("SUCCESS_LOG", "fun searchRecipes() completed")
                 }, {
                     Log.d(
