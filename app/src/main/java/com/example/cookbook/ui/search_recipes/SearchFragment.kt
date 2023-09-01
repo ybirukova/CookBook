@@ -57,11 +57,10 @@ class SearchFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setBottomNavigationVisibility(View.GONE)
 
-
         setItemListeners()
         setupRecyclerView()
         observeAllRecipes()
-        observeLoadingStatus()
+        observeScreenState()
     }
 
     override fun onDestroy() {
@@ -102,18 +101,19 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun observeAllRecipes() {
-        viewModel.searchResultLiveData.observe(viewLifecycleOwner) {
+        viewModel.searchResult.observe(viewLifecycleOwner) {
             it?.let { list ->
                 searchAdapter.updateRecipes(list)
+                binding.tvEnterTextForSearching.isVisible = list.isEmpty()
             }
         }
     }
 
-    private fun observeLoadingStatus() {
-        viewModel.isLoading.observe(viewLifecycleOwner) {
+    private fun observeScreenState() {
+        viewModel.isLoadingState.observe(viewLifecycleOwner) {
             with(binding) {
-                tvEnterTextForSearching.isVisible = it
                 rvSearchResult.isVisible = !it
+                progressBar.isVisible = it
             }
         }
     }

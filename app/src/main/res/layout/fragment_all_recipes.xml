@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/search_view"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -17,17 +17,18 @@
         <EditText
             android:id="@+id/et_search_click"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
+            android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:cursorVisible="false"
+            android:autofillHints="@string/hint_search"
             android:focusable="false"
             android:hint="@string/hint_search"
-            android:longClickable="false" />
-    </RelativeLayout>
+            android:longClickable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
         android:id="@+id/progress_bar"

@@ -82,7 +82,7 @@ class AllRecipesFragment : BaseFragment() {
     }
 
     private fun observeLoadingStatus() {
-        viewModel.isLoading.observe(viewLifecycleOwner) {
+        viewModel.isLoadingState.observe(viewLifecycleOwner) {
             binding.progressBar.isVisible = it
             binding.allRecipesRv.isVisible = !it
         }

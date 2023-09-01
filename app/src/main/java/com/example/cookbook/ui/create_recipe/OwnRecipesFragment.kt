@@ -88,7 +88,7 @@ class OwnRecipesFragment : BaseFragment() {
     }
 
     private fun observeLoadingStatus() {
-        viewModel.isLoading.observe(viewLifecycleOwner) {
+        viewModel.isShowingMessage.observe(viewLifecycleOwner) {
             binding.tvCreateYourOwnRecipe.isVisible = it
             binding.rvOwnRecipes.isVisible = !it
         }

@@ -1,23 +1,21 @@
 package com.example.cookbook.domain.repository
 
-import androidx.lifecycle.LiveData
 import com.example.cookbook.domain.models.RecipeData
+import io.reactivex.Completable
+import io.reactivex.Observable
+import io.reactivex.Single
 
 interface RecipeRepository {
 
-    suspend fun refreshDatabaseWithRandomRecipes()
+    fun refreshDatabaseWithRandomRecipes(): Completable
 
-    suspend fun getRecipeList(): List<RecipeData>
+    fun getRecipeListSync(): Observable<List<RecipeData>>
 
-    suspend fun getRecipeListSync(): LiveData<List<RecipeData>>
+    fun getRecipeListBySearching(q: String): Single<List<RecipeData>>
 
-    suspend fun getRecipeListBySearching(q: String): List<RecipeData>
+    fun updateIsFavorite(recipe: RecipeData): Completable
 
-    suspend fun updateIsFavorite(recipe: RecipeData)
+    fun addFavoriteRecipe(recipe: RecipeData): Completable
 
-    suspend fun getFavoriteRecipeList(): List<RecipeData>
-
-    suspend fun addFavoriteRecipe(recipe: RecipeData)
-
-    suspend fun getFavoriteRecipeListSync(): LiveData<List<RecipeData>>
+    fun getFavoriteRecipeListSync(): Observable<List<RecipeData>>
 }

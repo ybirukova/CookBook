@@ -25,9 +25,9 @@ class OwnRecipesViewModel @Inject constructor(
     val ownRecipes: LiveData<List<RecipeData>>
         get() = _ownRecipes
 
-    private val _isLoading = MutableLiveData(true)
-    val isLoading: LiveData<Boolean>
-        get() = _isLoading
+    private val _isShowingMessage = MutableLiveData(true)
+    val isShowingMessage: LiveData<Boolean>
+        get() = _isShowingMessage
 
     private val _isSuccessful = MutableLiveData(false)
     val isSuccessful: LiveData<Boolean>
@@ -43,13 +43,18 @@ class OwnRecipesViewModel @Inject constructor(
         recipeRepository.getRecipeListSync()
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
-            .doOnSubscribe { _isLoading.value = true }
+            .doOnSubscribe { _isShowingMessage.value = true }
             .subscribe(
                 {
                     _ownRecipes.value = it
-                    _isLoading.value = ownRecipes.value?.isEmpty() == true
+                    _isShowingMessage.value = ownRecipes.value?.isEmpty()
+                    Log.d("SUCCESS_LOG", "fun observeRecipes() completed")
                 }, {
-                    Log.d("ERROR_LOG", it.localizedMessage ?: "unknown error")
+                    Log.d(
+                        "ERROR_LOG",
+                        it.localizedMessage
+                            ?: "unknown error in OwnRecipesViewModel fun observeRecipes()"
+                    )
                 }
             )
             .addToComposite(composite)
@@ -59,7 +64,17 @@ class OwnRecipesViewModel @Inject constructor(
         recipeRepository.deleteRecipe(id)
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
-            .subscribe()
+            .subscribe(
+                {
+                    Log.d("SUCCESS_LOG", "fun deleteRecipe() completed")
+                }, {
+                    Log.d(
+                        "ERROR_LOG",
+                        it.localizedMessage
+                            ?: "unknown error in OwnRecipesViewModel fun deleteRecipe()"
+                    )
+                }
+            )
             .addToComposite(composite)
 
         observeRecipes()
@@ -84,7 +99,17 @@ class OwnRecipesViewModel @Inject constructor(
         )
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
-            .subscribe()
+            .subscribe(
+                {
+                    Log.d("SUCCESS_LOG", "fun createAndSaveRecipeData() completed")
+                }, {
+                    Log.d(
+                        "ERROR_LOG",
+                        it.localizedMessage
+                            ?: "unknown error in OwnRecipesViewModel fun createAndSaveRecipeData()"
+                    )
+                }
+            )
             .addToComposite(composite)
     }
 
