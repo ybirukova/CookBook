@@ -33,7 +33,7 @@
     <string name="new_recipe">New recipe</string>
     <string name="save">Save</string>
     <string-array name="spinner_array_meal_type">
-        <item></item>
+        <item>---MealType---</item>
         <item>breakfast</item>
         <item>snack</item>
         <item>lunch</item>
