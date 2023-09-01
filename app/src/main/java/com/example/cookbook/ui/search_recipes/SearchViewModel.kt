@@ -30,21 +30,21 @@ class SearchViewModel @Inject constructor(
 
     private val composite = CompositeDisposable()
 
-    fun searchRecipes(q: String) {
-        val observable1: Observable<List<RecipeData>> =
-            recipeRepository.getOwnRecipeListBySearching(q).toObservable()
-        val observable2: Observable<List<RecipeData>> =
-            recipeRepository.getRecipeListBySearching(q).toObservable()
+    fun searchRecipes(query: String) {
+        val localRecipeData: Observable<List<RecipeData>> =
+            recipeRepository.getOwnRecipeListBySearching(query).toObservable()
+        val remoteRecipeData: Observable<List<RecipeData>> =
+            recipeRepository.getRecipeListBySearching(query).toObservable()
 
-        Observable.zip(observable1, observable2) { o1, o2 ->
-            o1 + o2
+        Observable.zip(localRecipeData, remoteRecipeData) { localData, remoteData ->
+            localData + remoteData
         }
             .subscribeOn(schedulerIo)
             .observeOn(schedulerMainThread)
             .doOnSubscribe { _isLoadingState.value = true }
             .subscribe(
-                {
-                    _searchResult.value = it
+                { recipes ->
+                    _searchResult.value = recipes
                     _isLoadingState.value = false
                     Log.d("SUCCESS_LOG", "fun searchRecipes() completed")
                 }, {
