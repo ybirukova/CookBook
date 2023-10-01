@@ -14,7 +14,7 @@
     <string name="no_favorites_yet">Пока нету избранных…</string>
     <string name="hint_search">поиск…</string>
     <string name="create_your_own_recipe">Создайте свой собственный рецепт…</string>
-    <string name="hint_mealtype">тип блюда</string>
+    <string name="hint_mealtype">---</string>
     <string name="ingredients">Ингредиенты:</string>
     <string name="ingredients_1">Ингредиенты</string>
     <string name="hint_ingredients_list"> product1\n product2\n product3</string>

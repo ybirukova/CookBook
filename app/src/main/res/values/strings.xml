@@ -14,7 +14,7 @@
     <string name="no_favorites_yet">No favorites yet…</string>
     <string name="hint_search">search…</string>
     <string name="create_your_own_recipe">Create your own recipe…</string>
-    <string name="hint_mealtype">dinner</string>
+    <string name="hint_mealtype">---</string>
     <string name="ingredients">Ingredients:</string>
     <string name="ingredients_1">Ingredients</string>
     <string name="hint_ingredients_list"> product1\n product2\n product3</string>

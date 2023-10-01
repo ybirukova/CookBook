@@ -79,7 +79,7 @@ class OwnRecipesFragment : BaseFragment() {
     }
 
     private fun observeAllRecipes() {
-        viewModel.ownRecipes?.observe(viewLifecycleOwner) {
+        viewModel.ownRecipes.observe(viewLifecycleOwner) {
             it?.let { list ->
                 ownRecipesAdapter.updateRecipes(it)
                 binding.tvCreateYourOwnRecipe.isVisible = list.isEmpty()
@@ -88,7 +88,7 @@ class OwnRecipesFragment : BaseFragment() {
     }
 
     private fun observeLoadingStatus() {
-        viewModel.isLoading.observe(viewLifecycleOwner) {
+        viewModel.isShowingMessage.observe(viewLifecycleOwner) {
             binding.tvCreateYourOwnRecipe.isVisible = it
             binding.rvOwnRecipes.isVisible = !it
         }

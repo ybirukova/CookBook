@@ -1,23 +1,27 @@
 package com.example.cookbook.data.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import io.reactivex.Observable
+import io.reactivex.Single
 
 @Dao
 interface OwnRecipeDao {
 
     @Query("SELECT * FROM own_recipe_table")
-    fun getAllRecipes(): List<OwnRecipeEntity>
+    fun getAllRecipes(): Single<List<OwnRecipeEntity>>
 
     @Query("SELECT * FROM own_recipe_table")
-    fun getAllRecipesSync(): LiveData<List<OwnRecipeEntity>>
+    fun getAllRecipesSync(): Observable<List<OwnRecipeEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllRecipes(vararg recipes: OwnRecipeEntity)
 
     @Query("DELETE FROM own_recipe_table WHERE id = :id")
     fun deleteRecipe(id: Int)
+
+    @Query("SELECT * FROM own_recipe_table WHERE title LIKE '%' || :title || '%'")
+    fun getRecipeListBySearching(title: String): Single<List<OwnRecipeEntity>>
 }

@@ -24,7 +24,8 @@ class ResponseToDataRecipeMapper @Inject constructor() {
             mealType = recipe?.mealType?.get(ZERO) ?: EMPTY_STRING,
             ingredientLines = recipe?.ingredientLines.orEmpty(),
             totalTime = getTotalTime(recipe?.totalTime),
-            isFavorite = false
+            isFavorite = false,
+            isOwnRecipe = false
         )
     }
 

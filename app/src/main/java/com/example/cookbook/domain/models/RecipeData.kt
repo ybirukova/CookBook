@@ -12,5 +12,6 @@ data class RecipeData(
     val mealType: String,
     val ingredientLines: List<String>,
     val totalTime: String,
-    val isFavorite: Boolean
+    val isFavorite: Boolean,
+    val isOwnRecipe: Boolean
 ) : Parcelable
