@@ -14,9 +14,9 @@ class AllRecipesViewModel @Inject constructor(private val recipeRepository: Reci
 
     var allRecipes: LiveData<List<RecipeData>>? = null
 
-    private val _isLoading = MutableLiveData(true)
-    val isLoading: LiveData<Boolean>
-        get() = _isLoading
+    private val _isLoadingState = MutableLiveData(true)
+    val isLoadingState: LiveData<Boolean>
+        get() = _isLoadingState
 
     init {
         refreshRecipes()
@@ -30,10 +30,10 @@ class AllRecipesViewModel @Inject constructor(private val recipeRepository: Reci
     }
 
     private fun observeRecipes() {
-        _isLoading.value = true
+        _isLoadingState.value = true
         viewModelScope.launch {
             allRecipes = recipeRepository.getRecipeListSync()
-            _isLoading.value = false
+            _isLoadingState.value = false
         }
     }
 

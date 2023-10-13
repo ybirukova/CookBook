@@ -16,7 +16,8 @@ class OwnEntityToDataRecipeMapper @Inject constructor() {
             mealType = mealType,
             ingredientLines = listOf(*ingredients.split("\n").toTypedArray()),
             totalTime = totalTime,
-            isFavorite = false
+            isFavorite = false,
+            isOwnRecipe = isOwnRecipe
         )
     }
 }

@@ -23,7 +23,7 @@ class RecipeRepositoryImpl @Inject constructor(
 
     override suspend fun refreshDatabaseWithRandomRecipes() {
         withContext(Dispatchers.IO) {
-            if (database.getAllRecipes().isEmpty()) {
+            if (database.getAllRecipesSync().value?.isEmpty() == true || database.getAllRecipesSync().value?.isEmpty() == null) {
                 val list = service.getRandomRecipeList().hits?.map {
                     responseToDataMapper(it)
                 } ?: throw Exception(ERROR_MESSAGE)
@@ -37,7 +37,7 @@ class RecipeRepositoryImpl @Inject constructor(
 
     override suspend fun getRecipeList(): List<RecipeData> {
         return withContext(Dispatchers.IO) {
-            database.getAllRecipes().map { entityToDataMapper(it) }
+            database.getAllRecipesSync().value?.map { entityToDataMapper(it) } ?: emptyList()
         }
     }
 
@@ -65,7 +65,8 @@ class RecipeRepositoryImpl @Inject constructor(
 
     override suspend fun getFavoriteRecipeList(): List<RecipeData> {
         return withContext(Dispatchers.IO) {
-            val list = database.getFavoriteRecipes(true).map { entityToDataMapper(it) }
+            val list = database.getFavoriteRecipesSync(true).value?.map { entityToDataMapper(it) }
+                ?: emptyList()
             list
         }
     }

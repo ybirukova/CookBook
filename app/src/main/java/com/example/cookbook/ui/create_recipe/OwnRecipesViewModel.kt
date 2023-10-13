@@ -15,7 +15,7 @@ class OwnRecipesViewModel @Inject constructor(private val recipeRepository: OwnR
     ViewModel() {
 
     var ownRecipes: LiveData<List<RecipeData>>? = null
-
+    
     private val _isLoading = MutableLiveData(true)
     val isLoading: LiveData<Boolean>
         get() = _isLoading
@@ -54,11 +54,22 @@ class OwnRecipesViewModel @Inject constructor(private val recipeRepository: OwnR
         mealType: String = EMPTY_STRING,
         ingredientLines: List<String>,
         totalTime: String = EMPTY_STRING,
-        isFavorite: Boolean = false
+        isFavorite: Boolean = true,
+        isOwnRecipe: Boolean = true
     ) {
         viewModelScope.launch {
             recipeRepository.addNewRecipe(
-                RecipeData(id, label, image, url, mealType, ingredientLines, totalTime, isFavorite)
+                RecipeData(
+                    id,
+                    label,
+                    image,
+                    url,
+                    mealType,
+                    ingredientLines,
+                    totalTime,
+                    isFavorite,
+                    isOwnRecipe
+                )
             )
         }
     }

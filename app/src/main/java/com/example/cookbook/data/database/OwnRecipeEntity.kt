@@ -12,4 +12,5 @@ data class OwnRecipeEntity(
     @ColumnInfo("mealType") val mealType: String,
     @ColumnInfo("ingredients") val ingredients: String,
     @ColumnInfo("totalTime") val totalTime: String,
+    @ColumnInfo("isOwnRecipe") val isOwnRecipe: Boolean
 )

@@ -13,5 +13,6 @@ data class RecipeEntity(
     @ColumnInfo("mealType") val mealType: String,
     @ColumnInfo("ingredientLines") val ingredientLines: String,
     @ColumnInfo("totalTime") val totalTime: String,
-    @ColumnInfo("isFavorite") val isFavorite: Boolean
+    @ColumnInfo("isFavorite") val isFavorite: Boolean,
+    @ColumnInfo("isOwnRecipe") val isOwnRecipe: Boolean
 )

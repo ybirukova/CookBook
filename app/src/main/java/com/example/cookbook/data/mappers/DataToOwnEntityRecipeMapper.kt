@@ -14,7 +14,8 @@ class DataToOwnEntityRecipeMapper @Inject constructor() {
             description = url,
             mealType = mealType,
             ingredients = if (ingredientLines.isEmpty()) EMPTY_STRING else ingredientLines[ZERO],
-            totalTime = totalTime
+            totalTime = totalTime,
+            isOwnRecipe = isOwnRecipe
         )
     }
 }

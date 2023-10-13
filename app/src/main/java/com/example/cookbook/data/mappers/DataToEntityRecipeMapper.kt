@@ -15,7 +15,8 @@ class DataToEntityRecipeMapper @Inject constructor(private val typeConverter: Ty
             mealType = mealType,
             ingredientLines = typeConverter.subToJson(ingredientLines),
             totalTime = totalTime,
-            isFavorite = isFavorite
+            isFavorite = isFavorite,
+            isOwnRecipe = isOwnRecipe
         )
     }
 }

@@ -9,20 +9,12 @@ class DatabaseSource @Inject constructor(
     private val recipeDao: RecipeDao
 ) {
 
-    fun getAllRecipes(): List<RecipeEntity> {
-        return recipeDao.getAllRecipes()
-    }
-
     fun getAllRecipesSync(): LiveData<List<RecipeEntity>> {
         return recipeDao.getAllRecipesSync()
     }
 
     fun insertAllRecipes(vararg recipes: RecipeEntity) {
         recipeDao.insertAllRecipes(*recipes)
-    }
-
-    fun getFavoriteRecipes(isFavorite: Boolean): List<RecipeEntity> {
-        return recipeDao.getFavoriteRecipes(isFavorite)
     }
 
     fun getFavoriteRecipesSync(isFavorite: Boolean): LiveData<List<RecipeEntity>> {
