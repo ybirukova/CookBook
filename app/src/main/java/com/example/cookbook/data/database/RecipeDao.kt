@@ -27,8 +27,8 @@ interface RecipeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllRecipes(vararg recipes: RecipeEntity)
 
-    @Query("DELETE FROM recipe_table WHERE isFavorite = false")
-    fun deleteAll()
+//    @Query("DELETE FROM recipe_table WHERE isFavorite = false")
+//    fun deleteAll()
 
     @Query("UPDATE recipe_table SET isFavorite = :isFavorite WHERE id = :id")
     fun updateIsFavorite(isFavorite: Boolean, id: Int)
