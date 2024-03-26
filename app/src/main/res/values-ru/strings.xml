@@ -7,7 +7,7 @@
     <string name="title_my_recipes">Мои рецепты</string>
     <string name="search_title">Поиск…</string>
 
-    <string name="hint_title">Заголовок</string>
+    <string name="hint_title">Название</string>
     <string name="hint_description">Описание</string>
     <string name="hint_cooking_time">Время готовки</string>
 
@@ -32,13 +32,11 @@
     <string name="hours">ч</string>
     <string name="new_recipe">Новый рецепт</string>
     <string name="save">Сохранить</string>
-    <string-array name="spinner_array_meal_type">
-        <item>---Тип блюда---</item>
-        <item>завтрак</item>
-        <item>перекус</item>
-        <item>обед</item>
-        <item>полдник</item>
-        <item>ужин</item>
-    </string-array>
+
+    <string name="breakfast">завтрак</string>
+    <string name="snack">перекус</string>
+    <string name="lunch">обед</string>
+    <string name="tea">полдник</string>
+    <string name="dinner">ужин</string>
 
 </resources>
