@@ -1,7 +1,7 @@
 package com.example.cookbook.data.repositories_impl
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.example.cookbook.data.database_sources.DatabaseSource
 import com.example.cookbook.data.mappers.DataToEntityRecipeMapper
 import com.example.cookbook.data.mappers.EntityToDataRecipeMapper
@@ -42,7 +42,7 @@ class RecipeRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getRecipeListSync(): LiveData<List<RecipeData>> {
-        return Transformations.map(database.getAllRecipesSync()) {
+        return database.getAllRecipesSync().map {
             it.map { entity ->
                 entityToDataMapper(entity)
             }
@@ -78,7 +78,7 @@ class RecipeRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getFavoriteRecipeListSync(): LiveData<List<RecipeData>> {
-        return Transformations.map(database.getFavoriteRecipesSync(isFavorite = true)) {
+        return database.getFavoriteRecipesSync(isFavorite = true).map {
             it.map { entity ->
                 entityToDataMapper(entity)
             }

@@ -7,7 +7,7 @@
     <string name="title_my_recipes">My recipes</string>
     <string name="search_title">Search…</string>
 
-    <string name="hint_title">Title of the recipe</string>
+    <string name="hint_title">Title</string>
     <string name="hint_description">Description</string>
     <string name="hint_cooking_time">Cooking time</string>
 
@@ -32,9 +32,15 @@
     <string name="hours">h</string>
     <string name="new_recipe">New recipe</string>
     <string name="save">Save</string>
+
+    <string name="breakfast">breakfast</string>
+    <string name="snack">snack</string>
+    <string name="lunch">lunch</string>
+    <string name="tea">tea</string>
+    <string name="dinner">dinner</string>
     <string-array name="spinner_array_meal_type">
         <item>---MealType---</item>
-        <item>breakfast</item>
+
         <item>snack</item>
         <item>lunch</item>
         <item>tea</item>
