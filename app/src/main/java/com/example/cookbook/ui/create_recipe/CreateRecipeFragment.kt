@@ -52,6 +52,11 @@ class CreateRecipeFragment : Fragment() {
         setEditTextListener(binding.etMin)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         (activity as MainActivity).setBottomNavigationVisibility(View.VISIBLE)
