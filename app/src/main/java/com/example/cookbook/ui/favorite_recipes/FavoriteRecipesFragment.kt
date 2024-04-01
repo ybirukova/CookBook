@@ -60,6 +60,11 @@ class FavoriteRecipesFragment : BaseFragment() {
         search()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setupRecyclerView() {
         val recycler = binding.favoritesRecipesRv
         recycler.adapter = favoriteRecipesAdapter

@@ -60,6 +60,11 @@ class AllRecipesFragment : BaseFragment() {
         search()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setupRecyclerView() {
         val recycler = binding.allRecipesRv
         recycler.adapter = allRecipesAdapter

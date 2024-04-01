@@ -55,6 +55,11 @@ class FullRecipeFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setItems(view: View, recipe: RecipeData) {
         val title = binding.tvTitle
         val mealType = binding.tvMealType
