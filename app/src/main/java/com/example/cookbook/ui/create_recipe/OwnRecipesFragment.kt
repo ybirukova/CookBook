@@ -58,6 +58,11 @@ class OwnRecipesFragment : BaseFragment() {
         observeLoadingStatus()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setOnClickListener() {
         val button = binding.createRecipe
         button.setOnClickListener {

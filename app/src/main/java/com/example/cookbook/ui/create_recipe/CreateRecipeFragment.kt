@@ -18,6 +18,7 @@ import com.example.cookbook.databinding.FragmentCreateRecipeBinding
 import com.example.cookbook.di.ViewModelFactory
 import com.example.cookbook.ui.MainActivity
 import com.example.cookbook.utils.Constants.Companion.EMPTY_STRING
+import com.google.android.material.chip.Chip
 import javax.inject.Inject
 
 class CreateRecipeFragment : Fragment() {
@@ -49,6 +50,11 @@ class CreateRecipeFragment : Fragment() {
 
         setButtonClickListener()
         setEditTextListener(binding.etMin)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onDestroy() {
@@ -97,10 +103,17 @@ class CreateRecipeFragment : Fragment() {
             val totalTime =
                 "$hoursStr ${resources.getString(R.string.hours)} $minStr ${resources.getString(R.string.min)}"
 
+            val selectedChips: MutableList<String> = mutableListOf()
+
+            for (chipId in cgMealtype.checkedChipIds) {
+                val chip = requireActivity().findViewById<Chip>(chipId)
+                selectedChips.add(chip.text.toString())
+            }
+
             viewModel.createAndSaveRecipeData(
                 label = etTitle.text.toString(),
                 url = etDescription.text.toString(),
-                mealType = spinnerMealType.selectedItem.toString(),
+                mealType = selectedChips.toString(),
                 ingredientLines = listOf(etAddProduct.text.toString()),
                 totalTime = totalTime
             )

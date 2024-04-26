@@ -1,7 +1,7 @@
 package com.example.cookbook.data.repositories_impl
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import com.example.cookbook.data.database_sources.OwnRecipesDatabaseSource
 import com.example.cookbook.data.mappers.DataToOwnEntityRecipeMapper
 import com.example.cookbook.data.mappers.OwnEntityToDataRecipeMapper
@@ -24,7 +24,7 @@ class OwnRecipeRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getRecipeListSync(): LiveData<List<RecipeData>> {
-        return Transformations.map(database.getAllRecipesSync()) {
+        return database.getAllRecipesSync().map {
             it.map { entity ->
                 entityToDataMapper(entity)
             }

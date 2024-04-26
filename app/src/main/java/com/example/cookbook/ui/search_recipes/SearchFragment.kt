@@ -64,6 +64,11 @@ class SearchFragment : BaseFragment() {
         observeLoadingStatus()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         (activity as MainActivity).setBottomNavigationVisibility(View.VISIBLE)
